@@ -11,7 +11,8 @@ const getNumber = async (setLinks, setThematic, thematic, links) => {
     if(ifAlreadyChoosen && ifAlreadyChoosen!=="" && ifAlreadyChoosen!=="home"){
         // Si dejà présent dans le storage
         setThematic(ifAlreadyChoosen);
-    } else {        localStorage.setItem("pendable-place", "home");
+    } else {        
+        localStorage.setItem("pendable-place", "home");
         setThematic("home");
         const jsonByTheme = [];
         for(let i= 0; i < total.length; i++){
@@ -47,6 +48,7 @@ function Home() {
     const [links, setLinks] = useState([]);
 
     useEffect(() => getNumber(setLinks, setThematic, thematic, links), [links, thematic]);
+
 
     return (
         <Fragment>
