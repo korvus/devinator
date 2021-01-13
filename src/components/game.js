@@ -1,16 +1,12 @@
-import {
-  Fragment,
-  useState,
-  useEffect,
-  useContext
-} from "react";
-import { total } from "../data/index.js";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { themeSummaries } from "../data/index.js";
 import { penduContext } from "../store/index";
-import { alphabetFR, alphabetSL, shuffle } from "../utils/index.js";
+import { useThematic } from "../store/thematic";
+import { alphabetFR, alphabetSL, shuffle, rand } from "../utils/index.js";
+import AnswerInput from "./answer-input";
+import Proposal from "./proposal";
 
-const rand = (maximum) => {
-  return Math.floor(Math.random() * maximum) + 1;
-};
+const WORD_DEFAULT = { hint: "", answer: "", suggestion: [] };
 
 function getSuggestion(answer, lang) {
   const letters = lang === "sl" ? alphabetSL : alphabetFR;
@@ -19,45 +15,13 @@ function getSuggestion(answer, lang) {
   return suggestion.split("");
 }
 
-const Proposal = ({ suggestion, onChange }) => {
-  return (
-    <div className="proposal">
-      {suggestion.map((letter, a) => (
-        <div
-          onClick={() => {
-              console.log("this", this);
-            onChange(letter);
-          }}
-          key={a}
-          className="proposaletter"
-        >
-          {letter}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-const AnswerInput = ({ value, onChange }) => {
-  return (
-    <div className="propal">
-      {value.map((char, i) => (
-        <input
-          key={i}
-          value={char}
-          onChange={(e) => {
-            onChange(e.target.value);
-          }}
-          type="text"
-          className="letter"
-        />
-      ))}
-    </div>
-  );
-};
-
 async function fetchWord(thematic) {
+  if (!thematic) {
+    return WORD_DEFAULT;
+  }
+
   const allWords = await import(`../data/${thematic}.json`);
+
   const words = Object.entries(allWords);
   const word = words[rand(words.length)];
 
@@ -68,73 +32,73 @@ async function fetchWord(thematic) {
   };
 }
 
-const goHome = (setThematic) => {
-  setThematic("home");
-  localStorage.setItem("pendable-place", "");
-};
-
-const writeSessionStorage = (thematic, setLang) => {
-  localStorage.setItem("pendable-place", thematic);
-  const param = total.filter((params) => params[0] === thematic);
-  setLang(param[2]);
-};
-
-const checkBeforeAdd = (letter, obj, suggestion) => {
-    const pos = suggestion.indexOf(letter.toLowerCase());
-    console.log(pos);
-    addLetter(letter, obj);
+function getLangFromTheme(thematic) {
+  return themeSummaries.filter((params) => params[0] === thematic)[2];
 }
 
-const addLetter = (letter, {indexletter, setIndexletter, currentAnswer, setCurrentAnswer}) => {
-    const arrAnswer = currentAnswer.slice();
-    arrAnswer[indexletter] = letter;
-
-    if(indexletter < currentAnswer.length){
-        setIndexletter(i => i+1);
-        setCurrentAnswer(arrAnswer);
-    } else {
-        alert("devrait check si c'est bon avant");
-    }
-}
-
-function Game() {
-  const { thematic, setThematic, setLang } = useContext(penduContext);
-  const [word, setWord] = useState({ hint: "", answer: "", suggestion: [] });
+function useWordAnswer(thematic) {
+  const [word, setWord] = useState(WORD_DEFAULT);
   const [currentAnswer, setCurrentAnswer] = useState([]);
-  // const [letter, setLetter] = useState("");
-  const [indexletter, setIndexletter] = useState(0);
 
-  // const arrLength = word.hint.split("").length;
   useEffect(() => {
     let cancelled = false;
-    writeSessionStorage(thematic, setLang);
+
     const update = async () => {
       const word = await fetchWord(thematic);
-      if (!cancelled) setWord(word);
+      if (!cancelled) {
+        setWord(word);
+        setCurrentAnswer(Array(word.answer.length).fill(null));
+      }
     };
     update();
+
     return () => {
       cancelled = true;
     };
   }, [thematic]);
 
-  useEffect(() => {
-    setCurrentAnswer(() => Array(word.answer.length).fill(""));
-    setIndexletter(0);
-  }, [word]);
+  const fullAnswer = useMemo(
+    () => ({
+      focusedLetter: currentAnswer.findIndex(
+        (suggestionIndex) => suggestionIndex === null
+      ),
+      letters: currentAnswer.map((suggestionIndex) => ({
+        suggestionIndex,
+        letter: word.suggestion[suggestionIndex] ?? "",
+      })),
+    }),
+    [currentAnswer, word]
+  );
 
-  const focusletter = {
-    indexletter,
-    setIndexletter,
-    currentAnswer,
-    setCurrentAnswer
-  }
+  const addLetter = useCallback((suggestionIndex, answerIndex) => {
+    setCurrentAnswer((answer) => {
+      answer[answerIndex] = suggestionIndex;
+      return [...answer];
+    });
+  }, []);
+
+  return [word, fullAnswer, addLetter];
+}
+
+function Game() {
+  const { thematic, updateThematic } = useThematic();
+  const { setLang } = useContext(penduContext);
+
+  const [word, answer, addLetter] = useWordAnswer(thematic);
+
+  useEffect(() => {
+    setLang(getLangFromTheme(thematic));
+  }, [setLang, thematic]);
+
+  const handleLetter = (suggestionIndex, answerIndex) => {
+    addLetter(suggestionIndex, answerIndex);
+  };
 
   return (
-    <Fragment>
+    <>
       <div className="contentWraper">
         <div className="menu">
-          <span onClick={() => goHome(setThematic)}>home</span>
+          <span onClick={() => updateThematic("home")}>home</span>
         </div>
         <div className="progressBar">
           <div className="bar"></div>
@@ -142,12 +106,7 @@ function Game() {
 
         <div className="key">{word.hint}</div>
 
-        <AnswerInput
-          value={currentAnswer}
-          onChange={(letter) => {
-            checkBeforeAdd(letter, focusletter, word.suggestion);
-          }}
-        />
+        <AnswerInput word={word} answer={answer} onLetter={handleLetter} />
 
         <span className="next">Next</span>
         <ul className="options">
@@ -162,12 +121,7 @@ function Game() {
           </li>
         </ul>
 
-        <Proposal
-          suggestion={word.suggestion}
-          onChange={(letter) => {
-            addLetter(letter, focusletter);
-          }}
-        />
+        <Proposal word={word} onLetter={handleLetter} />
       </div>
 
       <footer>
@@ -178,7 +132,7 @@ function Game() {
           erase all statistics from this thematic
         </span>
       </footer>
-    </Fragment>
+    </>
   );
 }
 

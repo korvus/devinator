@@ -1,19 +1,17 @@
 import React, { useState, createContext } from "react";
+import { useThematic } from "../store/thematic";
 
 export const penduContext = createContext(null);
 
-export const PenduContextProvider = props => {
-  const existing = localStorage.getItem("pendable-place");
-  let them = existing ? existing : "";
-
-  const [thematic, setThematic] = useState(them);
-  const [lang, setLang] = useState("fr")
+export const PenduContextProvider = (props) => {
+  const [lang, setLang] = useState("fr");
+  const { thematic, updateThematic } = useThematic();
 
   const provider = {
-      thematic,
-      setThematic,
-      lang,
-      setLang
+    thematic,
+    setThematic: updateThematic,
+    lang,
+    setLang,
   };
 
   return (

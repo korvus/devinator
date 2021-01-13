@@ -1,12 +1,14 @@
-import './App.css';
-import Home from './components/home.js';
-import { PenduContextProvider } from './store/index.js';
+import "./App.css";
+import Home from "./components/home.js";
+import { PenduContextProvider } from "./store/index.js";
+import { ThematicProvider } from "./store/thematic";
 
 function App() {
-
   return (
     <PenduContextProvider>
-      <Home />
+      <ThematicProvider>
+        <Home />
+      </ThematicProvider>
     </PenduContextProvider>
   );
 }

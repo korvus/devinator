@@ -1,4 +1,9 @@
-export const total = [
- ["couples", "Couples célèbres", "fr"], 
- ["departements", "retrouver le numéro correspondant au département", "fr"]   
-]
+export const themeSummaries = [
+  ["couples", "Couples célèbres", "fr", 36],
+  [
+    "departements",
+    "retrouver le numéro correspondant au département",
+    "fr",
+    101,
+  ],
+];
