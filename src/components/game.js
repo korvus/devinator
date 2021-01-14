@@ -78,20 +78,19 @@ function useWordAnswer(thematic) {
     });
   }, []);
 
-  const listeningKeyboard = (value) => {
-    const suggestionIndex = word.suggestion.findIndex((letter) => {
-      return lettersMatch(letter, value.key);
-    });
-    // console.log("word.suggestion", fullAnswer.focusedLetter, suggestionIndex, word,);
-    if (suggestionIndex > -1) {
-      addLetter(suggestionIndex, fullAnswer.focusedLetter);
-    }
-  };
-
   useEffect(() => {
-    window.addEventListener("keydown", listeningKeyboard);
+    const handleKeydown = (value) => {
+      const suggestionIndex = word.suggestion.findIndex((letter) => {
+        return lettersMatch(letter, value.key);
+      });
+      // console.log("word.suggestion", fullAnswer.focusedLetter, suggestionIndex, word,);
+      if (suggestionIndex > -1) {
+        addLetter(suggestionIndex, fullAnswer.focusedLetter);
+      }
+    };
+    window.addEventListener("keydown", handleKeydown);
     return () => {
-      window.removeEventListener("keydown", listeningKeyboard);
+      window.removeEventListener("keydown", handleKeydown);
     };
   }, [addLetter, fullAnswer, word]);
 
