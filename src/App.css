@@ -73,7 +73,9 @@ p{font-size:3em;margin:0;}
 .finish .next{display:block;font-size:0.5em;padding:10px 30px;}
 .propal{display:block;text-align:center;margin-bottom:10px;}
 .letter{display:inline-block;border:1px solid #555;width:25px;height:35px;margin-bottom:5px;margin-left:4px;text-align:center;font-weight:bold;font-size:20px;white-space:nowrap;cursor:pointer;text-transform:uppercase;}
-.letter:focus{outline:5px solid #000;}
+.letter:focus{outline: none;}
+.letter.focused,
+.letter.focused:focus{outline:5px solid #000;}
 .hideLetter{color:#fff;}
 
 .options{display:block;text-align:center;margin:0;padding:0;}

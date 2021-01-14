@@ -1,15 +1,15 @@
 import React from "react";
 import { lettersMatch } from "../utils";
 
-function filterValue(str, index, word) {
-  return str.toLowerCase().slice(0, 1);
+function filterValue(str) {
+  return str.toLowerCase().slice(-1);
 }
 
 const AnswerInput = ({ word, answer, onLetter }) => {
   const handleChange = (value, answerIndex) => {
-    const suggestionIndex = word.suggestion.findIndex((letter) =>
-      lettersMatch(letter, value)
-    );
+    const suggestionIndex = word.suggestion.findIndex((letter) => {
+      return lettersMatch(letter, value)
+    });
     if (suggestionIndex > -1) {
       onLetter(suggestionIndex, answerIndex);
     }
@@ -23,22 +23,24 @@ const AnswerInput = ({ word, answer, onLetter }) => {
           letter={letter}
           onChange={handleChange}
           index={index}
+          focusedLetter={answer.focusedLetter}
         />
       ))}
     </div>
   );
 };
 
-const AnswerInputLetter = ({ letter, onChange, index }) => {
+const AnswerInputLetter = ({ letter, onChange, index, focusedLetter }) => {
   const handleChange = (event) => {
-    onChange(filterValue(event.target.value), index);
+    onChange(filterValue(event.target.value), focusedLetter);
   };
 
   return (
     <input
       type="text"
-      className="letter"
+      className={`letter ${index === focusedLetter ? `focused` : ''}`}
       value={letter}
+      readOnly
       onChange={handleChange}
     />
   );

@@ -1,6 +1,7 @@
 import React from "react";
 
 const Proposal = ({ word, answer, onLetter }) => {
+
   return (
     <div className="proposal">
       {word.suggestion.map((suggestionLetter, suggestionIndex) => (

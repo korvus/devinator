@@ -5,6 +5,7 @@ import { useThematic } from "../store/thematic";
 import { alphabetFR, alphabetSL, shuffle, rand } from "../utils/index.js";
 import AnswerInput from "./answer-input";
 import Proposal from "./proposal";
+import { lettersMatch } from "../utils";
 
 const WORD_DEFAULT = { hint: "", answer: "", suggestion: [] };
 
@@ -77,6 +78,23 @@ function useWordAnswer(thematic) {
     });
   }, []);
 
+  const listeningKeyboard = (value) => {
+    const suggestionIndex = word.suggestion.findIndex((letter) => {
+      return lettersMatch(letter, value.key);
+    });
+    // console.log("word.suggestion", fullAnswer.focusedLetter, suggestionIndex, word,);
+    if (suggestionIndex > -1) {
+      addLetter(suggestionIndex, fullAnswer.focusedLetter);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", listeningKeyboard);
+    return () => {
+      window.removeEventListener("keydown", listeningKeyboard);
+    };
+  }, [addLetter, fullAnswer, word]);
+
   return [word, fullAnswer, addLetter];
 }
 
@@ -121,7 +139,7 @@ function Game() {
           </li>
         </ul>
 
-        <Proposal word={word} onLetter={handleLetter} />
+        <Proposal word={word} answer={answer} onLetter={handleLetter} />
       </div>
 
       <footer>

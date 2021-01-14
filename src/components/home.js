@@ -16,7 +16,6 @@ const ListLinks = () => {
 
 function Home() {
   const { thematic } = useThematic();
-  console.log("THEMATIC", thematic);
   return (
     <>
       {thematic === "home" ? (
