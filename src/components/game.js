@@ -5,7 +5,7 @@ import { useThematic } from "../store/thematic";
 import { alphabetFR, alphabetSL, shuffle, rand } from "../utils/index.js";
 import AnswerInput from "./answer-input";
 import Proposal from "./proposal";
-import { lettersMatch } from "../utils";
+import { lettersMatch, extractOnlySuggestionId } from "../utils";
 
 const WORD_DEFAULT = { hint: "", answer: "", suggestion: [] };
 
@@ -71,6 +71,34 @@ function useWordAnswer(thematic) {
     [currentAnswer, word]
   );
 
+  const jocker = () => {
+    const firstUnsolvedIndex = fullAnswer.letters.findIndex((letter, i) => !lettersMatch(letter.letter,word.answer[i]));
+    const suggestionsIndex = extractOnlySuggestionId(fullAnswer);
+    const suggestionIndex = word.suggestion.findIndex((letter, index) => {
+      return lettersMatch(letter, word.answer[firstUnsolvedIndex]) && !suggestionsIndex.includes(index);
+    });
+    if (suggestionIndex > -1) {
+      addLetter(suggestionIndex, firstUnsolvedIndex);
+    }
+  }
+
+  const solution = () => {
+    const suggestionsIndex = [];
+    fullAnswer.letters.map((letter, i) => {
+      const suggestionIndex = word.suggestion.findIndex((letter, index) => {
+        return lettersMatch(letter, word.answer[i]) && !suggestionsIndex.includes(index);
+      });
+      suggestionsIndex.push(suggestionIndex);
+      if (suggestionIndex > -1) {
+        addLetter(suggestionIndex, i);
+      }
+    });
+  }
+
+  const resetWord = () => {
+    setCurrentAnswer(Array(word.answer.length).fill(null));
+  }
+
   const addLetter = useCallback((suggestionIndex, answerIndex) => {
     setCurrentAnswer((answer) => {
       answer[answerIndex] = suggestionIndex;
@@ -80,10 +108,19 @@ function useWordAnswer(thematic) {
 
   useEffect(() => {
     const handleKeydown = (value) => {
-      const suggestionIndex = word.suggestion.findIndex((letter) => {
-        return lettersMatch(letter, value.key);
+      if(value.which === 8){
+        const nbFilled = currentAnswer.filter(indexSuggestion => indexSuggestion !== null).length;
+        
+        const afterRemovedLastLetter = currentAnswer.map((indexSuggestion, i) => {
+          return i < nbFilled - 1 ? indexSuggestion : null;
+        })
+        setCurrentAnswer(afterRemovedLastLetter);
+        
+      }
+      const suggestionsIndex = extractOnlySuggestionId(fullAnswer);
+      const suggestionIndex = word.suggestion.findIndex((letter, index) => {
+        return lettersMatch(letter, value.key) && !suggestionsIndex.includes(index);
       });
-      // console.log("word.suggestion", fullAnswer.focusedLetter, suggestionIndex, word,);
       if (suggestionIndex > -1) {
         addLetter(suggestionIndex, fullAnswer.focusedLetter);
       }
@@ -94,14 +131,18 @@ function useWordAnswer(thematic) {
     };
   }, [addLetter, fullAnswer, word]);
 
-  return [word, fullAnswer, addLetter];
+  const actions = {
+    resetWord, jocker, solution
+  }
+
+  return [word, fullAnswer, addLetter, actions];
 }
 
 function Game() {
   const { thematic, updateThematic } = useThematic();
   const { setLang } = useContext(penduContext);
 
-  const [word, answer, addLetter] = useWordAnswer(thematic);
+  const [word, answer, addLetter, actions] = useWordAnswer(thematic);
 
   useEffect(() => {
     setLang(getLangFromTheme(thematic));
@@ -128,13 +169,13 @@ function Game() {
         <span className="next">Next</span>
         <ul className="options">
           <li>
-            <span className="eraseAll">Erase All</span>
+            <span onClick={actions.resetWord} className="eraseAll">Erase All</span>
           </li>
           <li>
-            <span className="solve">Solution</span>
+            <span onClick={actions.solution} className="solve">Solution</span>
           </li>
           <li>
-            <span className="jocker1">Jocker</span>
+            <span onClick={actions.jocker} className="jocker1">Jocker</span>
           </li>
         </ul>
 

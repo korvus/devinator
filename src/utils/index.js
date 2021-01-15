@@ -22,3 +22,9 @@ export function lettersMatch(a, b) {
     // new Intl.Collator("fr-FR", { sensitivity: "base" }).compare(a, b);
     return a.toLowerCase() === b.toLowerCase();
 }
+
+export function extractOnlySuggestionId(answer) {
+    let suggestionsIndex = answer.letters.map(letter => letter.suggestionIndex);
+    suggestionsIndex = suggestionsIndex.filter(suggestion => suggestion !== null);
+    return suggestionsIndex;
+}

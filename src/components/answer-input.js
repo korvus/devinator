@@ -1,48 +1,19 @@
 import React from "react";
-import { lettersMatch } from "../utils";
 
-function filterValue(str) {
-  return str.toLowerCase().slice(-1);
-}
-
-const AnswerInput = ({ word, answer, onLetter }) => {
-  const handleChange = (value, answerIndex) => {
-    const suggestionIndex = word.suggestion.findIndex((letter) => {
-      return lettersMatch(letter, value)
-    });
-    if (suggestionIndex > -1) {
-      onLetter(suggestionIndex, answerIndex);
-    }
-  };
+const AnswerInput = ({ answer }) => {
 
   return (
     <div className="propal">
       {answer.letters.map(({ letter }, index) => (
-        <AnswerInputLetter
-          key={index}
-          letter={letter}
-          onChange={handleChange}
-          index={index}
-          focusedLetter={answer.focusedLetter}
-        />
+          <input
+            key={index}
+            type="text"
+            className={`letter ${index === answer.focusedLetter ? `focused` : ''}`}
+            value={letter}
+            readOnly
+          />
       ))}
     </div>
-  );
-};
-
-const AnswerInputLetter = ({ letter, onChange, index, focusedLetter }) => {
-  const handleChange = (event) => {
-    onChange(filterValue(event.target.value), focusedLetter);
-  };
-
-  return (
-    <input
-      type="text"
-      className={`letter ${index === focusedLetter ? `focused` : ''}`}
-      value={letter}
-      readOnly
-      onChange={handleChange}
-    />
   );
 };
 
