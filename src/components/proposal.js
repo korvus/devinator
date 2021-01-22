@@ -1,9 +1,9 @@
 import React from "react";
+import { extractOnlySuggestionId } from "../utils/index";
 
-const Proposal = ({ word, answer, onLetter }) => {
+const Proposal = ({ word, answer, onLetter, cancel, statusAnswer }) => {
 
-  let suggestionsIndex = answer.letters.map(letter => letter.suggestionIndex);
-  suggestionsIndex = suggestionsIndex.filter(suggestion => suggestion !== null);
+  const suggestionsIndex = extractOnlySuggestionId(answer);
 
   return (
     <div className="proposal">
@@ -11,13 +11,21 @@ const Proposal = ({ word, answer, onLetter }) => {
         <div
           key={suggestionIndex}
           onClick={() => {
-            if(!suggestionsIndex.includes(suggestionIndex)) onLetter(suggestionIndex, answer.focusedLetter); 
+            if(!suggestionsIndex.includes(suggestionIndex) && !statusAnswer) onLetter(suggestionIndex, answer.focusedLetter); 
           }}
-          className={`proposaletter ${suggestionsIndex.includes(suggestionIndex) ? "locked" : ""}`}
+          className={`proposaletter ${suggestionsIndex.includes(suggestionIndex) ? "locked" : ""} ${statusAnswer ? "locked" : ""}`}
         >
           {suggestionLetter}
         </div>
       ))}
+      <div 
+        className={`proposaletter backspace ${statusAnswer ? "locked" : ""}`}
+        onClick={() => {
+          if(!statusAnswer) cancel();
+        }}
+      >
+        ↶
+      </div>
     </div>
   );
 };

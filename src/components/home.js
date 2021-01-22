@@ -4,9 +4,9 @@ import { useThematic } from "../store/thematic";
 import Game from "./game";
 
 const ListLinks = () => {
-  const { updateThematic } = useThematic();
+  const { updateThematic, updateThematicProgress } = useThematic();
   return themeSummaries.map(([id, description, , total]) => (
-    <li className="theme" key={id} onClick={() => updateThematic(id)}>
+    <li className="theme" key={id} onClick={() => {updateThematic(id); updateThematicProgress(id)}}>
       <strong>{id}</strong>
       {` - ${description} - `}
       <small>{`${total} devinettes`}</small>
@@ -19,7 +19,7 @@ function Home() {
   return (
     <>
       {thematic === "home" ? (
-        <>
+        <div className="home">
           <h1>Le devinator</h1>
           <div className="contentWraper">
             <p className="presentation">
@@ -31,7 +31,7 @@ function Home() {
               <ListLinks />
             </ul>
           </div>
-        </>
+        </div>
       ) : (
         <Game />
       )}

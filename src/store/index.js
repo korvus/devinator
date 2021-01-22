@@ -11,7 +11,7 @@ export const PenduContextProvider = (props) => {
     thematic,
     setThematic: updateThematic,
     lang,
-    setLang,
+    setLang
   };
 
   return (

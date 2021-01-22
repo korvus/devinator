@@ -1,7 +1,7 @@
 export const themeSummaries = [
   [
-    "couples",
-    "Couples célèbres",
+    "duo",
+    "duo célèbres",
     "fr",
     36
   ],

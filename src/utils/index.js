@@ -28,3 +28,17 @@ export function extractOnlySuggestionId(answer) {
     suggestionsIndex = suggestionsIndex.filter(suggestion => suggestion !== null);
     return suggestionsIndex;
 }
+
+export function extractIndexBaseOnFalse(obj){
+    return obj.reduce((res, value, index) => {
+        if(!value) {
+          res.push(index)
+        }
+        return res
+      }, []);
+}
+
+export function getPercent(total, unsolved){
+    const percent = Math.round(Math.round(unsolved*100)/total);
+    return percent+"%";
+}
