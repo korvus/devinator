@@ -7,6 +7,7 @@ import AnswerInput from "./answer-input";
 import Proposal from "./proposal";
 import Completed from "./completed";
 import { lettersMatch, extractOnlySuggestionId, extractIndexBaseOnFalse, getPercent } from "../utils";
+import { useParams } from "react-router-dom";
 
 const WORD_DEFAULT = { hint: "", answer: "", suggestion: [] };
 const THEMATIC_DEFAULT = {unsolved:10, totalThematic: 0};
@@ -139,9 +140,9 @@ function useWordAnswer(thematic, progression) {
     });
   };
 
-  const resetWord = () => {
+  const resetWord = useCallback(() => {
     setCurrentAnswer(Array(word.answer.length).fill(null));
-  };
+  }, [word.answer.length]);
 
   const addLetter = useCallback((suggestionIndex, answerIndex) => {
     setCurrentAnswer((answer) => {
@@ -195,15 +196,22 @@ function useWordAnswer(thematic, progression) {
           addLetter(suggestionIndex, fullAnswer.focusedLetter);
         }
       }else{
-        // Next
-        if(value.which === 13) progression.fullfillProgress(word.index, thematic);
+        
+          if(value.which === 13){
+            if(statusAnswer === true){
+              progression.fullfillProgress(word.index, thematic);
+            } else {
+              resetWord();
+            }
+          }
+        
       }
     };
     window.addEventListener("keydown", handleKeydown);
     return () => {
       window.removeEventListener("keydown", handleKeydown);
     };
-  }, [addLetter, fullAnswer, word, removeLast, statusAnswer, progression, thematic]);
+  }, [addLetter, fullAnswer, word, removeLast, statusAnswer, progression, resetWord, thematic]);
 
   const actions = {
     resetWord,
@@ -216,7 +224,8 @@ function useWordAnswer(thematic, progression) {
 }
 
 function Game() {
-  const { thematic, updateThematic, progress, updateThematicProgress, fullfillProgress } = useThematic();
+  let { thematic } = useParams();
+  const { updateThematic, progress, updateThematicProgress, fullfillProgress } = useThematic();
   const { setLang } = useContext(penduContext);
 
   const progression = {
@@ -257,7 +266,6 @@ function Game() {
             title={`you solved ${thematicProgress.totalThematic - thematicProgress.unsolved} words on ${thematicProgress.totalThematic}`}
             className="bar"
             style={{"clipPath": `inset(0% ${getPercent(thematicProgress.totalThematic, thematicProgress.unsolved)} 0% 0%)`}}>
-            
           </div>
         </div>
 
@@ -265,8 +273,9 @@ function Game() {
           <>
             <div className="key">{word.hint}</div>
             <AnswerInput word={word} answer={answer} onLetter={handleLetter} />
+            <span onClick={actions.resetWord} className="retry">Retry</span>
             <span onClick={handleNext} className="next">Next</span>
-            {!statusAnswer && (
+            {(!statusAnswer && statusAnswer !== false) && (
               <ul className="options">
                 <li>
                   <span onClick={actions.resetWord} className="eraseAll">
@@ -297,7 +306,7 @@ function Game() {
                 className="lk restartAll"
                 title="will erase the cookie listing if your answered or not to the challenges list"
               >
-                erase all statistics from this thematic
+                reset your progress for this thematic
               </span>
             </footer>
           </>

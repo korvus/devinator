@@ -50,6 +50,7 @@ h1 span{font-style:italic;font-size:14px;padding-left:10px;font-family:Times, se
 ul {padding: 0;}
 ul li{display:block;margin:0;color:#000;text-decoration:none;font-size:14px;cursor: pointer;}
 ul li strong{text-decoration:underline;font-size:20px;}
+li.theme a{text-decoration: none; color: #000;}
 
 
 
@@ -134,20 +135,52 @@ footer {width: 900px; margin: 0 auto;}
   transform: rotate(5deg);
   animation: pulse 3s ease-out 2s alternate infinite none running;
 }
+
+.retry {
+  display:none;margin:30px auto;cursor:pointer;color:#000;text-decoration:none;
+  width: 90px;
+  box-sizing: border-box;
+  font-weight: bold;
+  height: 90px;
+  padding: 5px;
+  z-index: 3;
+  text-decoration: none;
+  border: 10px solid #ffe300;
+  box-shadow: inset 1px 0 1px #bba811, 0 0 10px #bba811;
+  text-align: center;
+  line-height: 50px;
+  font-weight: bold;
+  text-indent: 8px;
+  border-radius: 50%;
+  align-items: center;
+  background: linear-gradient(180deg, #bba811 0%, #ffe300 60%,#fff 100%);
+  color: #222b38;
+  transform: rotate(5deg);
+  animation: pulse 3s ease-out 2s alternate infinite none running;
+}
+
 .win .next{display:flex;text-align:center;padding:10px 0;font-size:20px;text-transform:uppercase;}
 .win .next:focus{background:rgb(149,255,175);outline: none;}
+.loose .retry{display:flex;text-align:center;padding:10px 0;font-size:17px;text-transform:uppercase;}
+.loose .proposal{display: none;}
 
-
-.loose{background:#222;
--webkit-transition:background .6s ease-in-out;
--moz-transition:background .6s ease-in-out;
--o-transition:background .6s ease-in-out;
-transition:background .6s ease-in-out;
+@keyframes error {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
-.loose .letter{background:#555;}
+
+.loose{
+  background: linear-gradient(270deg, #fb0000, #4b0000);
+  background-size: 400% 400%;
+  animation: error 11s ease infinite;
+}
+
+.loose .letter{background: #000;border:1px solid #000;color: #555;}
+.loose .progressBar{border-bottom:#000;background:#333;}
 .loose .proposaletter{opacity:0.2;}
-.loose .progressBar{border-bottom:#000;background:#000;}
-.loose .progressBar .bar{border-top:#000;background:#222;}
+.loose .progressBar .bar{border-top:#000;background:#9e8e15;}
+.loose footer span{color: #000;}
 
 .progressBar{display:block;width:100%;height:10px;border-bottom:1px solid #aaa;background:#666;}
 .progressBar .bar{
