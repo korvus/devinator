@@ -1,38 +1,36 @@
-import { useCallback, useContext, useEffect, useMemo, useState, useRef } from "react";
-import { themeSummaries } from "../data/index.js";
-import { penduContext } from "../store/index";
+import { useCallback, useEffect, useMemo, useState, useRef } from "react";
+import { Text } from "../store/lang";
 import { useThematic } from "../store/thematic";
-import { alphabetFR, alphabetSL, shuffle, rand } from "../utils/index.js";
+import { rand, getSuggestion } from "../utils/index.js";
 import AnswerInput from "./answer-input";
 import Proposal from "./proposal";
 import Completed from "./completed";
-import { lettersMatch, extractOnlySuggestionId, extractIndexBaseOnFalse, getPercent } from "../utils";
-import { useParams } from "react-router-dom";
+import { lettersMatch, extractOnlySuggestionId, extractIndexBaseOnFalse, isEqual, getPercent } from "../utils";
+import { useParams, Link } from "react-router-dom";
 
 const WORD_DEFAULT = { hint: "", answer: "", suggestion: [] };
 const THEMATIC_DEFAULT = {unsolved:10, totalThematic: 0};
-
-function getSuggestion(answer, lang) {
-  const letters = lang === "sl" ? alphabetSL : alphabetFR;
-  const commonLetters = shuffle(letters).slice(0, 10);
-  const suggestion = shuffle(commonLetters + answer).toLowerCase();
-  return suggestion.split("");
-}
 
 async function fetchWord(thematic, progress, upProgression) {
   if (!thematic || !progress) {
     return [WORD_DEFAULT, THEMATIC_DEFAULT];
   }
 
-  const allWords = await import(`../data/${thematic}.json`);
+  let allWords;
+  try {
+    allWords = await import(`../data/${thematic}.json`);
+  } catch (error) {
+    window.location = "/notfound";
+  }
 
-  if(Object.keys(progress).length === 0){
-    console.log(upProgression);
+  progress = typeof(progress) === "object" ? progress : JSON.parse(progress)
+
+  if(Object.keys(progress).length === 0 || progress[thematic] === undefined){
     upProgression(thematic);
     return [WORD_DEFAULT, THEMATIC_DEFAULT];
   }
 
-  const listAllWords = JSON.parse(progress)[thematic];
+  const listAllWords = progress[thematic];
   if(!listAllWords){
     return [WORD_DEFAULT, THEMATIC_DEFAULT];
   }
@@ -55,15 +53,12 @@ async function fetchWord(thematic, progress, upProgression) {
     index: wordIndex,
     hint: word[0],
     answer: word[1].nom,
-    suggestion: getSuggestion(word[1].nom),
+    suggestion: getSuggestion(word[1].nom, thematic),
   }, {
     unsolved: unsolvedIndexWords.length,
     totalThematic: listAllWords.length,
   }];
-}
 
-function getLangFromTheme(thematic) {
-  return themeSummaries.filter((params) => params[0] === thematic)[2];
 }
 
 function useWordAnswer(thematic, progression) {
@@ -73,7 +68,9 @@ function useWordAnswer(thematic, progression) {
   const [thematicProgress, setThematicProgress] = useState(THEMATIC_DEFAULT);
 
   const refreshCancel = useRef(() => {});
-  const refresh = useCallback((thematic, progression, upProgression) => {
+  const refresh = useCallback((thematic, progression, upProgression, updateThematic) => {
+    updateThematic(thematic);
+    // console.log("updateThematic", updateThematic);
     let cancelled = false;
     refreshCancel.current();
     refreshCancel.current = () => {
@@ -93,7 +90,18 @@ function useWordAnswer(thematic, progression) {
     return refreshCancel.current;
   }, [])
 
-  useEffect(() => refresh(thematic, progression.progress, progression.updateThematicProgress), [thematic, progression.progress, progression.updateThematicProgress, refresh]);
+  useEffect(() => refresh(
+    thematic,
+    progression.progress,
+    progression.updateThematicProgress,
+    progression.updateThematic
+  ), [
+    thematic,
+    progression.progress,
+    progression.updateThematicProgress,
+    progression.updateThematic,
+    refresh
+  ]);
 
   const fullAnswer = useMemo(
     () => ({
@@ -155,7 +163,7 @@ function useWordAnswer(thematic, progression) {
     const typed =
       fullAnswer.letters.reduce((a, { letter }) => a + letter, "");
     if (fullAnswer.letters.length === fullAnswer.focusedLetter || fullAnswer.focusedLetter === -1) {
-      if (typed.toLowerCase() === word.answer.toLowerCase()) {
+      if (isEqual(typed, word.answer)) {
         setStatusAnswer(true);
       } else {
         setStatusAnswer(false);
@@ -225,20 +233,24 @@ function useWordAnswer(thematic, progression) {
 
 function Game() {
   let { thematic } = useParams();
-  const { updateThematic, progress, updateThematicProgress, fullfillProgress } = useThematic();
-  const { setLang } = useContext(penduContext);
+  const { progress, updateThematicProgress, fullfillProgress, updateThematic, reinitThematicProgress } = useThematic();
 
   const progression = {
     progress,
     fullfillProgress,
-    updateThematicProgress
+    updateThematicProgress,
+    updateThematic
   }
 
   const [word, answer, addLetter, statusAnswer, actions, thematicProgress] = useWordAnswer(thematic, progression);
 
-  useEffect(() => {
-    setLang(getLangFromTheme(thematic));
-  }, [setLang, thematic]);
+
+  const resetThematic = () => {
+    // Reset a false les mots dans le localstorage (mais ne retouche pas au state)
+    reinitThematicProgress(thematic, thematicProgress.totalThematic);
+    // Update le hooks pour provoquer un refresh
+    updateThematicProgress(thematic);
+  }
 
   const handleLetter = (suggestionIndex, answerIndex) => {
     addLetter(suggestionIndex, answerIndex);
@@ -259,11 +271,13 @@ function Game() {
         `}
       >
         <div className="menu">
-          <span onClick={() => updateThematic("home")}>home</span>
+          <Link to="/">
+            <Text tid="home" />
+          </Link>
         </div>
         <div className="progressBar">
           <div 
-            title={`you solved ${thematicProgress.totalThematic - thematicProgress.unsolved} words on ${thematicProgress.totalThematic}`}
+            title={`${Text({tid: "YouSolved"})} ${thematicProgress.totalThematic - thematicProgress.unsolved} ${Text({tid: "wordsOn"})} ${thematicProgress.totalThematic}`}
             className="bar"
             style={{"clipPath": `inset(0% ${getPercent(thematicProgress.totalThematic, thematicProgress.unsolved)} 0% 0%)`}}>
           </div>
@@ -279,17 +293,17 @@ function Game() {
               <ul className="options">
                 <li>
                   <span onClick={actions.resetWord} className="eraseAll">
-                    Clear
+                    <Text tid="clear" />
                   </span>
                 </li>
                 <li>
                   <span onClick={actions.solution} className="solve">
-                    Solution
+                    <Text tid="solution" />
                   </span>
                 </li>
                 <li>
                   <span onClick={actions.jocker} className="jocker1">
-                    Jocker
+                    <Text tid="Jocker" />
                   </span>
                 </li>
               </ul>
@@ -304,9 +318,10 @@ function Game() {
             <footer>
               <span
                 className="lk restartAll"
-                title="will erase the cookie listing if your answered or not to the challenges list"
+                title={Text({tid: "resetEveryThing"})}
+                onClick={resetThematic}
               >
-                reset your progress for this thematic
+                <Text tid="resetForThematic" />
               </span>
             </footer>
           </>

@@ -1,43 +1,64 @@
-import React from "react";
+import React, {useContext} from "react";
 import { themeSummaries } from "../data/index";
-import { useThematic } from "../store/thematic";
+import { Text, penduContext } from "../store/lang";
 import Game from "./game";
-import {
-  Switch,
-  Link,
-  Route
-} from "react-router-dom";
+import { Switch, Link, Route } from "react-router-dom";
+import Notfound from "./notfound.js";
+import { LOCAL_STORAGE_KEY_PROGRESS } from "../store/thematic";
+import LanguageSelector from "./languageSelector";
+
+const Solved = ({id}) => {
+  let currentProgress = localStorage.getItem(LOCAL_STORAGE_KEY_PROGRESS);
+  if(currentProgress){currentProgress = JSON.parse(currentProgress)}
+  let percent = 0;
+  let solved = 0;
+  if(currentProgress && currentProgress[id]){
+    solved = currentProgress[id].filter(w => w === true).length;
+    const total = currentProgress[id].length;
+    percent = Math.round((Math.round(Math.round(solved)*100))/Math.round(total))/2;
+  }
+  return (<div title={`${solved} ${Text({tid:"solved"})}`} className="indicatorProgress">
+    <span style={{'width': `${percent}px`}}></span>
+  </div>);
+}
 
 const ListLinks = () => {
-  // const { updateThematic, updateThematicProgress } = useThematic();
-  // onClick={() => {updateThematic(id); updateThematicProgress(id)}}
-  return themeSummaries.map(([id, description, , total]) => (
+  const { userLanguage } = useContext(penduContext);
+  const themByLang = themeSummaries.filter(({langue, visible}) => (langue === userLanguage && visible));
+
+  return themByLang.map(({id, desc, number}) => (
     <li className="theme" key={id}>
       <Link to={id}>
         <strong>{id}</strong>
-          {` - ${description} - `}
-        <small>{`${total} devinettes`}</small>
+          {` - ${desc} - `}
+        <small>{`${number} ${Text({tid:"devinettes"})}`}</small>
+        <Solved id={id} />
       </Link>
     </li>
   ));
 };
 
 function Home() {
-  // const { thematic } = useThematic();
+
   return (
     <Switch>
+      <Route path="/notfound">
+        <Notfound />
+      </Route>
+
       <Route path="/:thematic">
         <Game />
       </Route>
 
       <Route path="/">
         <div className="home">
-            <h1>Le devinator</h1>
+            <h1>
+              <Text tid="titre" />
+            </h1>
             <div className="contentWraper">
+              <LanguageSelector />
               <p className="presentation">
-                Le but est de retrouver un mot ou un nom qui a une corrélation
-                avec la description affichée au dessus. Voici les jeux thématiques
-                actuellement disponible :
+                <Text tid="descApp" />
               </p>
               <ul>
                 <ListLinks />
@@ -48,27 +69,5 @@ function Home() {
     </Switch>
     );
 }
-
-/*
-    <>
-      {thematic === "home" ? (
-        <div className="home">
-          <h1>Le devinator</h1>
-          <div className="contentWraper">
-            <p className="presentation">
-              Le but est de retrouver un mot ou un nom qui a une corrélation
-              avec la description affichée au dessus. Voici les jeux thématiques
-              actuellement disponible :
-            </p>
-            <ul>
-              <ListLinks />
-            </ul>
-          </div>
-        </div>
-      ) : (
-        <Game />
-      )}
-    </>
-*/
 
 export default Home;

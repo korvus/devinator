@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useContext } from "react";
 
 const LOCAL_STORAGE_KEY = "devinator-thematic";
-const LOCAL_STORAGE_KEY_PROGRESS = "devinator-progress";
+export const LOCAL_STORAGE_KEY_PROGRESS = "devinator-progress";
 
 const ThematicContext = React.createContext("");
 
@@ -33,11 +33,11 @@ const initProgress = async (thematic, existing) => {
 const reinitThematicProgress = (thematic, total) => {
   const emptyArray = Array(total).fill(false);
   const currentProgress = localStorage.getItem(LOCAL_STORAGE_KEY_PROGRESS);
-  // currentProgress.
   const existing = JSON.parse(currentProgress);
   existing[thematic] = emptyArray;
   const formattedExisting = JSON.stringify(existing);
   localStorage.setItem(LOCAL_STORAGE_KEY_PROGRESS, formattedExisting);
+  return formattedExisting;
 }
 
 
@@ -53,6 +53,7 @@ export function ThematicProvider({ children }) {
     }
 
     localStorage.setItem(LOCAL_STORAGE_KEY, value);
+    // ** Pose problème
     setThematic(value);
 
   }, []);

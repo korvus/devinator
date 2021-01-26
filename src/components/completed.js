@@ -1,18 +1,33 @@
 import React from "react";
 import { useThematic } from "../store/thematic";
+import { Text } from "../store/lang";
+import { Link } from "react-router-dom";
 
 const Completed = ({total}) => {
-  const { thematic, updateThematic, reinitThematicProgress } = useThematic();
+  const { thematic, reinitThematicProgress, updateThematicProgress } = useThematic();
+
+  const refresh = () => {
+    // Reset a false les mots dans le localstorage (mais ne retouche pas au state)
+    reinitThematicProgress(thematic, total);
+    // Update le hooks pour provoquer un refresh
+    updateThematicProgress(thematic);
+  }
 
   return (
     <div className="congratulation">
-      <h2>Congratulations</h2>
+      <h2><Text tid="Congratulations" /></h2>
       <p>
-        You completed the <strong>{thematic}</strong> set.
+        <Text tid="YouCompletedThe" />
+        <strong>{thematic}</strong>
+        <Text tid="set" />.
       </p>
       <p>
-        <span onClick={() => updateThematic("home")}>Go back to home</span> .&nbsp;
-        <span onClick={() => reinitThematicProgress(thematic, total)}>Redo</span>
+        <Link to='/'>
+          <Text tid="GoBackToHome" />
+        </Link> .&nbsp;
+        <span onClick={refresh}>
+          <Text tid="Redo" />
+        </span>
       </p>
     </div>
   );

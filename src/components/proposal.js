@@ -1,4 +1,5 @@
 import React from "react";
+import { Text } from "../store/lang";
 import { extractOnlySuggestionId } from "../utils/index";
 
 const Proposal = ({ word, answer, onLetter, cancel, statusAnswer }) => {
@@ -23,8 +24,9 @@ const Proposal = ({ word, answer, onLetter, cancel, statusAnswer }) => {
         onClick={() => {
           if(!statusAnswer) cancel();
         }}
+        title={Text({tid: "cancel"})}
       >
-        ↶
+        ⇠
       </div>
     </div>
   );

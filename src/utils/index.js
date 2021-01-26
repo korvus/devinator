@@ -1,11 +1,17 @@
-export const alphabetFR =
-    "eeeeeeeeeeeeeeessssssssaaaaaaaaiiiiiiiiittttttttnnnnnnnrrrrrrruuuuuullllloooooddddcccpppmmm---éévvqqfbghjàxyèêzwçkîïë ";
+import { themeSummaries } from "../data/index.js";
 
-export const alphabetSL =
-    "eeeeeeeeeeeeeaaaaaaaaaaaaiiiiiiiiooooooonrrrrrrrrsssssslllllllttttttjjjjjvvvvkkkkddddpppmmmuuuzzbbgghhččccššžžfy";
+
+
+// Anglais : https://www3.nd.edu/~busiforc/handouts/cryptography/letterfrequencies.html 
+// Slovenian : https://en.wikipedia.org/wiki/Scrabble_letter_distributions#Slovenian
+const alphabets = {
+    fr: "eeeeeeeeeeeeeeessssssssaaaaaaaaiiiiiiiiittttttttnnnnnnnrrrrrrruuuuuullllloooooddddcccpppmmm---éévvqqfbghjàxyèêzwçkîïë ",
+    sl: "eeeeeeeeeeeeeaaaaaaaaaaaaiiiiiiiiooooooonrrrrrrrrsssssslllllllttttttjjjjjvvvvkkkkddddpppmmmuuuzzbbgghhččccššžžfy---",
+    en: "eeeeeeeeeeeaaaaaaaarrrrrrrriiiiiiioooooootttttttnnnnnnnsssssslllllcccccuuuudddpppmmmggbbffyywkvxzjq---"
+}
 
 // https://stackoverflow.com/questions/3943772/how-do-i-shuffle-the-characters-in-a-string-in-javascript
-export const shuffle = (str) => {
+const shuffle = (str) => {
     return str
         .split("")
         .sort(function () {
@@ -14,6 +20,19 @@ export const shuffle = (str) => {
         .join("");
 };
 
+function getLangFromTheme(thematic) {
+    return themeSummaries.filter((params) => params.id === thematic)[0].alphabet;
+}
+  
+export function getSuggestion(answer, thematic) {
+    //thematic
+    const lang = getLangFromTheme(thematic) ?? "fr";
+    const letters = alphabets[lang];
+    const commonLetters = shuffle(letters).slice(0, 10);
+    const suggestion = shuffle(commonLetters + answer).toLowerCase();
+    return suggestion.split("");
+}
+
 export const rand = (maximum) => {
     return Math.floor(Math.random() * maximum);
 };
@@ -21,6 +40,11 @@ export const rand = (maximum) => {
 export function lettersMatch(a, b) {
     // new Intl.Collator("fr-FR", { sensitivity: "base" }).compare(a, b);
     return a.toLowerCase() === b.toLowerCase();
+}
+
+export function isEqual(a, b) {
+    const compare = a.localeCompare(b, 'fr', {sensitivity: "base"});
+    return compare === 0
 }
 
 export function extractOnlySuggestionId(answer) {

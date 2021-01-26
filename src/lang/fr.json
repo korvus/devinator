@@ -1,0 +1,21 @@
+{
+    "titre": "Devinator",
+    "descApp": "Le but est de retrouver un mot ou un nom qui a une corrélation avec la description affichée au dessus. Voici les jeux thématiques actuellement disponible :",
+    "home": "Accueil",
+    "clear": "Tout effacer",
+    "solution": "Resoudre",
+    "Jocker": "Jocker",
+    "resetForThematic": "Supprimer la progression pour cette thématique",
+    "Congratulations": "Félicitations",
+    "YouCompletedThe": "Vous avez complété l'ensemble ",
+    "set": "",
+    "GoBackToHome": "Retour à l'accueil",
+    "Redo": "Refaire",
+    "cancel": "Effacer la dernière lettre",
+    "YouSolved": "Vous avez trouvé",
+    "wordsOn": "mot(s) sur",
+    "resetEveryThing": "Supprime les bonnes réponses qui ont été conservées.",
+    "devinettes": "devinettes",
+    "notFound": "Il n'existe pas de mots associé à ce thème.",
+    "solved": "devinettes résolue(s)"
+}

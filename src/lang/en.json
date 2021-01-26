@@ -1,0 +1,21 @@
+{
+    "titre": "Devinator",
+    "descApp": "Goal is to find a word associate to a description or an another word by association. here are the current thematic available :",
+    "home": "Home",
+    "clear": "Clear",
+    "solution": "Solution",
+    "Jocker": "Jocker",
+    "resetForThematic": "reset your progress for this thematic",
+    "Congratulations": "Congratulations",
+    "YouCompletedThe": "You completed the ",
+    "set": "set",
+    "GoBackToHome": "Go back to home",
+    "Redo": "Redo",
+    "cancel": "remove last letter",
+    "YouSolved": "You solved",
+    "wordsOn": "word(s) on",
+    "resetEveryThing": "Will erase the answers you solved and stored on your brower",
+    "devinettes": "words to guess",
+    "notFound": "No words linked to this thematic.",
+    "solved": "solved"
+}

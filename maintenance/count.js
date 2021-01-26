@@ -22,14 +22,13 @@ fs.readdir(directoryPath, function (err, files) {
     console.log("-----------");
 
     let rawContent = fs.readFileSync(`${directoryPath}index.js`).toString();
-    // let contentParsed = JSON.parse(contentIndex);
-    const [prefix, jsoncontent ] = rawContent.split("=");
+    const [prefix, jsoncontent] = rawContent.split("=");
     const contentToUpdate = JSON.parse(jsoncontent);
 
     for(a = 0; a < contentToUpdate.length; a++){
         for(b = 0; b < nbr.length; b++){
-            if(contentToUpdate[a][0] === nbr[b].name){
-                contentToUpdate[a][3] = nbr[b].number
+            if(contentToUpdate[a].id === nbr[b].name){
+                contentToUpdate[a].number = nbr[b].number
             }
         }
     }
