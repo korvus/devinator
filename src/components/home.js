@@ -13,7 +13,7 @@ const Solved = ({id}) => {
   let percent = 0;
   let solved = 0;
   if(currentProgress && currentProgress[id]){
-    solved = currentProgress[id].filter(w => w === true).length;
+    solved = currentProgress[id].filter(w => w !== false).length;
     const total = currentProgress[id].length;
     percent = Math.round((Math.round(Math.round(solved)*100))/Math.round(total))/2;
   }
@@ -22,12 +22,20 @@ const Solved = ({id}) => {
   </div>);
 }
 
+const isInStorage = (id, visible) => {
+  let currentProgress = localStorage.getItem(LOCAL_STORAGE_KEY_PROGRESS);
+  if(currentProgress){currentProgress = JSON.parse(currentProgress)}
+  if(!currentProgress) return visible
+  if(currentProgress[id] !== undefined) return true
+  return visible;
+}
+
 const ListLinks = () => {
   const { userLanguage } = useContext(penduContext);
-  const themByLang = themeSummaries.filter(({langue, visible}) => (langue === userLanguage && visible));
+  const themByLang = themeSummaries.filter(({langue}) => (langue === userLanguage));
 
-  return themByLang.map(({id, desc, number}) => (
-    <li className="theme" key={id}>
+  return themByLang.map(({id, desc, number, visible}) => (
+    <li className={`theme ${visible ? "default":"gray"}`} style={{"display":`${isInStorage(id, visible) ? "block":"none"}`}} key={id}>
       <Link to={id}>
         <strong>{id}</strong>
           {` - ${desc} - `}

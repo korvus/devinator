@@ -5,7 +5,8 @@
     "clear": "Tout effacer",
     "solution": "Resoudre",
     "Jocker": "Jocker",
-    "resetForThematic": "Supprimer la progression pour cette thématique",
+    "resetForThematic": "Réinitialiser cette thématique",
+    "resetEveryThing": "Supprime les bonnes réponses qui ont été conservées.",
     "Congratulations": "Félicitations",
     "YouCompletedThe": "Vous avez complété l'ensemble ",
     "set": "",
@@ -14,8 +15,8 @@
     "cancel": "Effacer la dernière lettre",
     "YouSolved": "Vous avez trouvé",
     "wordsOn": "mot(s) sur",
-    "resetEveryThing": "Supprime les bonnes réponses qui ont été conservées.",
     "devinettes": "devinettes",
     "notFound": "Il n'existe pas de mots associé à ce thème.",
-    "solved": "devinettes résolue(s)"
+    "solved": "devinettes résolue(s)",
+    "reussite": "Réussite"
 }

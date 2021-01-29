@@ -55,7 +55,7 @@ export function extractOnlySuggestionId(answer) {
 
 export function extractIndexBaseOnFalse(obj){
     return obj.reduce((res, value, index) => {
-        if(!value) {
+        if(value === false) {
           res.push(index)
         }
         return res

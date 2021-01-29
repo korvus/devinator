@@ -2,7 +2,7 @@ html{height: 100%;}
 body{background:#fff;height: 100%;font-family: Arial, cursive;margin:0;padding:0;}
 #root{height: 100%;}
 
-.contentWraper{margin:0 auto;padding:0;overflow:hidden;position:relative;height: 100%;}
+.contentWraper{margin:0 auto;padding:0;overflow:hidden;position:relative;height: 100%;display:flex;flex-direction: column;}
 h1{margin:0 auto;border-bottom:1px solid #000;color:#000;padding:10px;width:900px;box-sizing: border-box;}
 h1 span{font-style:italic;font-size:14px;padding-left:10px;font-family:Times, serif;font-weight:normal;}
 h1:before{
@@ -72,13 +72,13 @@ ul {padding: 0;}
 ul li{display:block;margin:0;color:#000;text-decoration:none;font-size:14px;cursor: pointer;}
 ul li strong{text-decoration:underline;font-size:20px;}
 li.theme a{text-decoration: none; color: #000;}
+li.theme.gray a{color: #999;}
 
 .langues {float: right;}
 .langues span {color: #999;font-size: 13px;cursor: pointer;}
 .langues span:before {content: " . ";}
 .langues span:first-child:before {content: "";}
 
-footer {width: 900px; margin: 0 auto;}
 
 .menu{background:#000;color:#fff;padding:5px;}
 .menu a{display:block;margin: 0 auto;width: 900px;color:#fff;text-decoration:none;cursor: pointer;}
@@ -146,7 +146,7 @@ footer {width: 900px; margin: 0 auto;}
   z-index: 3;
   text-decoration: none;
   border: 10px solid #abc6ff;
-  box-shadow: inset 1px 0 1px #496cb6, 0 0 10px #496cb6;
+  box-shadow: inset 0 0 0 #496cb6, 0 0 5px #ddd;
   text-align: center;
   font-size: 23px;
   line-height: 50px;
@@ -206,6 +206,74 @@ footer {width: 900px; margin: 0 auto;}
 .loose .progressBar .bar{border-top:#000;background:#9e8e15;}
 .loose footer span{color: #000;}
 
+.scoreWrapper {
+  width: 900px; 
+  margin: 0 auto;
+  position: relative;
+}
+
+.scoreWrapper .label {
+  display: block;
+  text-align: center;
+  text-align: center;
+}
+
+.scoreWrapper .tooltip {
+  position: absolute;
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #999;
+  box-shadow: 0 0 5px #999;
+  border-radius: 6px;
+  top: 85px;
+  left: 8px;
+  width: 55px;
+  text-align: center;
+}
+.tooltip b{border-bottom: 1px solid #999;}
+.tooltip span{ color: #999; }
+.tooltip b,
+.tooltip span{
+  display: block;
+}
+
+.score {
+  text-align: center;
+  border: 6px solid #888;
+  display: flex;
+  color: #999;
+  position: absolute;
+  border-radius: 50%;
+  top: 5px;
+  flex-direction: column;
+  transform: rotate(-4deg);
+  width: 90px;
+  height: 90px;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.liveScore   {
+  font-size: 30px;
+  font-weight: bold;
+  text-shadow: 0px 1px 0px #bbb;
+}
+
+/* Couleur pourcent */
+.rate0 .score{box-shadow: inset 0 0 40px #000;border-color: #f00;color: #f00;}
+.rate1 .score{box-shadow: inset 0 0 30px #ad0000;border-color: #ad0000;color: #ad0000;}
+.rate2 .score{box-shadow: inset 0 0 30px #7a0000;border-color: #7a0000;color: #7a0000;}
+.rate3 .score{box-shadow: inset 0 0 30px #81146a;border-color: #81146a;color: #81146a;}
+.rate4 .score{box-shadow: inset 0 0 20px #ce86ff;border-color: #ce86ff;color: #ce86ff;}
+.rate5 .score{box-shadow: inset 0 0 20px #e7a9c6;border-color: #e7a9c6;color: #e7a9c6;}
+.rate6 .score{box-shadow: inset 0 0 20px #ebd766;border-color: #ebd766;color: #ebd766;}
+.rate7 .score{box-shadow: inset 0 0 10px #d6fd1d;border-color: #d6fd1d;color: #d6fd1d;}
+.rate8 .score{box-shadow: inset 0 0 10px #c2f381;border-color: #c2f381;color: #c2f381;}
+.rate9 .score{box-shadow: inset 0 0 10px #85dd7d;border-color: #85dd7d;color: #85dd7d;}
+.rate10 .score{box-shadow: inset 0 0 5px #45fc51;border-color: #45fc51;color: #45fc51;}
+
+
 .progressBar{display:block;width:100%;height:10px;border-bottom:1px solid #aaa;background:#666;}
 .progressBar .bar{
   height:10px;background:#000;display:block;border-bottom:1px solid #aaa;
@@ -232,7 +300,8 @@ p{font-size:3em;margin:0;}
 
 .randItem{position:absolute;z-index:2;display:none;}
 
-.key{font-size:100px;text-align:center;display:block;font-weight:bold;margin-bottom:30px;}
+.key{font-size:100px;text-align:center;display:block;font-weight:bold;margin:0 auto 30px auto;width: 900px;padding: 0 100px;box-sizing: border-box;}
+.key.longWord{font-size: 6vw;}
 .finish{font-size:3em;text-align:center;display:block;font-weight:bold;margin-bottom:30px;padding:20px 0;display:block;}
 .finish .next{display:block;font-size:0.5em;padding:10px 30px;}
 .propal{display:table;margin: 0 auto;text-align:center;margin-bottom:10px;padding: 7px 10px 0 10px;}
@@ -250,6 +319,8 @@ p{font-size:3em;margin:0;}
   background: linear-gradient(180deg, #ffffff, #d6fd1d, #ffffff, #ffffff);
   background-size: 800% 800%;
 }
+
+.hide {display: none;}
 
 .letter.focused,
 .letter.focused:focus{outline:4px solid #d6fd1d;}
@@ -281,7 +352,7 @@ p{font-size:3em;margin:0;}
   background: linear-gradient(to bottom,  #3b679e 0%,#2b88d9 50%,#207cca 51%,#7db9e8 100%);
 }
 
-.proposal{padding:10px 50px 60px;text-align:center;text-transform:uppercase;}
+.proposal{padding:10px 50px 60px;text-align:center;text-transform:uppercase;box-sizing: border-box;width: 900px;margin: 0 auto;flex-grow: 1;}
 .proposaletter{display:inline-block;margin-bottom:5px;font-weight:bold;font-size:25px;color:#000;height:30px;margin-right:5px;width:30px;text-align:center;border:1px solid #999;cursor:pointer;line-height:33px;border-radius:6px;vertical-align:top;
 background: #f2f6f8;box-shadow:0 0 3px #ccc;text-shadow:0 0 2px #555;
 background: linear-gradient(to bottom, #f2f6f8 0%,#d8e1e7 50%,#b5c6d0 51%,#e0eff9 100%);
@@ -307,10 +378,47 @@ background: linear-gradient(to bottom,  #3b679e 0%,#2b88d9 50%,#207cca 51%,#7db9
 	.proposal{padding:0 5px;}
 }
 
-footer{clear:both;}
-footer .lk{font-size:11px;color:#666;text-decoration:underline;text-indent:10px;display:block;cursor:pointer;}
+footer{clear:both;text-align:center;width: 100%;margin: 0 auto;background: #000;}
+footer .lk{font-size:14px;color:#fff;padding:4px;text-decoration:underline;display:inline-block;cursor:pointer;}
 
 .lk{clear:both;display:block;padding:5px;color:#555;font-size:30px;position:relative;}
 
-
 .h{display:none;}
+
+
+
+@media screen and (max-width: 900px){
+  h1,
+  .home{
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  ul li{
+    border-bottom: 1px solid #999;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+  }
+  h1{padding-top: 10px;}
+  .scoreWrapper{width: 100%; position: absolute;bottom: 80px;}
+  .scoreWrapper .label{padding-right: 10px;}
+  .score{border-radius: 0;border: none;transform: rotate(0);width: 100%;height: 50px;flex-direction: row;z-index: 1;}
+  .score .tooltip{display: block;}
+  .key{width: 100%;padding: 0 10px;font-size: 8vw;padding: 10px 0 0;margin-bottom: 10px;}
+  .options{display: flex;padding: 10px;}
+  .options li{flex-grow: 1;height: 40px;font-size: 18px;line-height: 40px;text-shadow: 0 1px 0 #fff;}
+  .propal {margin-bottom: 10px;}
+  .proposal{
+    background: #eee;
+    width: 100%;
+    padding-top: 20px;
+  }
+  .next {margin: 15px auto;}
+  .backspace {box-sizing: border-box;width: 100%;height: 47px;}
+  .proposaletter{padding: 5px;}
+  .letter{border: none;border-bottom: 1px solid #999;width: 17px;height: 30px;}
+  .congratulation{width: 100%;display: flex;flex-direction: column;padding: 0 10px;box-sizing: border-box;}
+  .congratulation p{font-size: 20px;}
+  .congratulation p:last-child{margin-top: 30px;}
+  .congratulation h2{font-size: 40px;}
+}

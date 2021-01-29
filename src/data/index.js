@@ -37,7 +37,7 @@ export const themeSummaries = [
     "visible": false,
     "alphabet": "sl",
     "langue": "fr",
-    "number": 26
+    "number": 25
   },
   {
     "id": "europeanCapitals",

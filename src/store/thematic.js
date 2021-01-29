@@ -80,10 +80,12 @@ export function ThematicProvider({ children }) {
     }
   }, []);
 
-  const fullfillProgress = useCallback((index, theme) => {
+  const fullfillProgress = useCallback((index, theme, score) => {
     setProgress((stored) => {
       const objStored = JSON.parse(stored);
-      objStored[theme][index] = true;
+      // C'est ici qu'on devrait accumuler les points
+      // objStored[theme][index] = true;
+      objStored[theme][index] = score;
       const toStore = JSON.stringify(objStored);
       localStorage.setItem(LOCAL_STORAGE_KEY_PROGRESS, toStore);
       return toStore
