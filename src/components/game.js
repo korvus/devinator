@@ -6,11 +6,17 @@ import AnswerInput from "./answer-input";
 import Proposal from "./proposal";
 import Score from "./score";
 import Completed from "./completed";
-import { lettersMatch, extractOnlySuggestionId, extractIndexBaseOnFalse, isEqual, getPercent } from "../utils";
+import {
+  lettersMatch,
+  extractOnlySuggestionId,
+  extractIndexBaseOnFalse,
+  isEqual,
+  getPercent
+} from "../utils";
 import { useParams, Link } from "react-router-dom";
 
 const WORD_DEFAULT = { hint: "", answer: "", suggestion: [] };
-const THEMATIC_DEFAULT = {unsolved:10, totalThematic: 0};
+const THEMATIC_DEFAULT = { unsolved: 10, totalThematic: 0 };
 const SCORE_DEFAULT = 0;
 
 async function fetchWord(thematic, progress, upProgression) {
@@ -25,15 +31,15 @@ async function fetchWord(thematic, progress, upProgression) {
     window.location = "/notfound";
   }
 
-  progress = typeof(progress) === "object" ? progress : JSON.parse(progress)
+  progress = typeof progress === "object" ? progress : JSON.parse(progress);
 
-  if(Object.keys(progress).length === 0 || progress[thematic] === undefined){
+  if (Object.keys(progress).length === 0 || progress[thematic] === undefined) {
     upProgression(thematic);
     return [WORD_DEFAULT, THEMATIC_DEFAULT];
   }
 
   const listAllWords = progress[thematic];
-  if(!listAllWords){
+  if (!listAllWords) {
     return [WORD_DEFAULT, THEMATIC_DEFAULT];
   }
   const unsolvedIndexWords = extractIndexBaseOnFalse(listAllWords);
@@ -44,23 +50,28 @@ async function fetchWord(thematic, progress, upProgression) {
   const wordIndex = unsolvedIndexWords[randomNumber];
   const word = words[wordIndex];
 
-  if(unsolvedIndexWords.length === 0){
-    return [WORD_DEFAULT,  {
-      unsolved: unsolvedIndexWords.length,
-      totalThematic: listAllWords.length,
-    }];
+  if (unsolvedIndexWords.length === 0) {
+    return [
+      WORD_DEFAULT,
+      {
+        unsolved: unsolvedIndexWords.length,
+        totalThematic: listAllWords.length
+      }
+    ];
   }
 
-  return [{
-    index: wordIndex,
-    hint: word[0],
-    answer: word[1].nom,
-    suggestion: getSuggestion(word[1].nom, thematic),
-  }, {
-    unsolved: unsolvedIndexWords.length,
-    totalThematic: listAllWords.length
-  }];
-
+  return [
+    {
+      index: wordIndex,
+      hint: word[0],
+      answer: word[1].nom,
+      suggestion: getSuggestion(word[1].nom, thematic)
+    },
+    {
+      unsolved: unsolvedIndexWords.length,
+      totalThematic: listAllWords.length
+    }
+  ];
 }
 
 function useWordAnswer(thematic, progression) {
@@ -71,51 +82,64 @@ function useWordAnswer(thematic, progression) {
   const [thematicProgress, setThematicProgress] = useState(THEMATIC_DEFAULT);
 
   const refreshCancel = useRef(() => {});
-  const refresh = useCallback((thematic, progression, upProgression, updateThematic) => {
-    updateThematic(thematic);
-    // console.log("updateThematic", updateThematic);
-    let cancelled = false;
-    refreshCancel.current();
-    refreshCancel.current = () => {
-      cancelled = true;
-    }
-    const update = async () => {
-      const progress = await progression;
-      const dataAboutWordAndThematic = await fetchWord(thematic, progress, upProgression);
-      if (!cancelled) {
-        setWord(dataAboutWordAndThematic[0]);
-        setThematicProgress(dataAboutWordAndThematic[1]);
-        setStatusAnswer(null);
-        setCurrentAnswer(Array(dataAboutWordAndThematic[0].answer.length).fill(null));
-        setScore(0);
-      }
-    };
-    update();
-    return refreshCancel.current;
-  }, [])
+  const refresh = useCallback(
+    (thematic, progression, upProgression, updateThematic) => {
+      updateThematic(thematic);
+      // console.log("updateThematic", updateThematic);
+      let cancelled = false;
+      refreshCancel.current();
+      refreshCancel.current = () => {
+        cancelled = true;
+      };
+      const update = async () => {
+        const progress = await progression;
+        const dataAboutWordAndThematic = await fetchWord(
+          thematic,
+          progress,
+          upProgression
+        );
+        if (!cancelled) {
+          setWord(dataAboutWordAndThematic[0]);
+          setThematicProgress(dataAboutWordAndThematic[1]);
+          setStatusAnswer(null);
+          setCurrentAnswer(
+            Array(dataAboutWordAndThematic[0].answer.length).fill(null)
+          );
+          setScore(0);
+        }
+      };
+      update();
+      return refreshCancel.current;
+    },
+    []
+  );
 
-  useEffect(() => refresh(
-    thematic,
-    progression.progress,
-    progression.updateThematicProgress,
-    progression.updateThematic
-  ), [
-    thematic,
-    progression.progress,
-    progression.updateThematicProgress,
-    progression.updateThematic,
-    refresh
-  ]);
+  useEffect(
+    () =>
+      refresh(
+        thematic,
+        progression.progress,
+        progression.updateThematicProgress,
+        progression.updateThematic
+      ),
+    [
+      thematic,
+      progression.progress,
+      progression.updateThematicProgress,
+      progression.updateThematic,
+      refresh
+    ]
+  );
 
   const fullAnswer = useMemo(
     () => ({
       focusedLetter: currentAnswer.findIndex(
-        (suggestionIndex) => suggestionIndex === null
+        suggestionIndex => suggestionIndex === null
       ),
-      letters: currentAnswer.map((suggestionIndex) => ({
+      letters: currentAnswer.map(suggestionIndex => ({
         suggestionIndex,
-        letter: word.suggestion[suggestionIndex] ?? "",
-      })),
+        letter: word.suggestion[suggestionIndex] ?? ""
+      }))
     }),
     [currentAnswer, word]
   );
@@ -134,7 +158,7 @@ function useWordAnswer(thematic, progression) {
     if (suggestionIndex > -1) {
       addLetter(suggestionIndex, firstUnsolvedIndex);
     }
-    setScore(s => s-1);
+    setScore(s => s - 1);
   };
 
   const solution = () => {
@@ -151,7 +175,7 @@ function useWordAnswer(thematic, progression) {
         addLetter(suggestionIndex, i);
       }
     });
-    setScore(s => s-5);
+    setScore(s => s - 5);
   };
 
   const resetWord = useCallback(() => {
@@ -159,21 +183,23 @@ function useWordAnswer(thematic, progression) {
   }, [word.answer.length]);
 
   const addLetter = useCallback((suggestionIndex, answerIndex) => {
-    setCurrentAnswer((answer) => {
+    setCurrentAnswer(answer => {
       answer[answerIndex] = suggestionIndex;
       return [...answer];
     });
   }, []);
 
-  const victory = (fullAnswer, word ) => {
-    const typed =
-      fullAnswer.letters.reduce((a, { letter }) => a + letter, "");
-    if (fullAnswer.letters.length === fullAnswer.focusedLetter || fullAnswer.focusedLetter === -1) {
+  const victory = (fullAnswer, word) => {
+    const typed = fullAnswer.letters.reduce((a, { letter }) => a + letter, "");
+    if (
+      fullAnswer.letters.length === fullAnswer.focusedLetter ||
+      fullAnswer.focusedLetter === -1
+    ) {
       if (isEqual(typed, word.answer)) {
-        setScore(s => s+5);
+        setScore(s => s + 5);
         setStatusAnswer(true);
       } else {
-        setScore(s => s-2);
+        setScore(s => s - 2);
         setStatusAnswer(false);
       }
     } else {
@@ -182,8 +208,8 @@ function useWordAnswer(thematic, progression) {
   };
 
   const removeLast = useCallback(() => {
-    setCurrentAnswer((a) => {
-      const nbFilled = a.filter((indexSuggestion) => indexSuggestion !== null)
+    setCurrentAnswer(a => {
+      const nbFilled = a.filter(indexSuggestion => indexSuggestion !== null)
         .length;
       const afterRemovedLastLetter = a.map((indexSuggestion, i) => {
         return i < nbFilled - 1 ? indexSuggestion : null;
@@ -197,8 +223,8 @@ function useWordAnswer(thematic, progression) {
   }, [fullAnswer, word]);
 
   useEffect(() => {
-    const handleKeydown = (value) => {
-      if(statusAnswer === null){
+    const handleKeydown = value => {
+      if (statusAnswer === null) {
         if (value.which === 8) {
           removeLast();
         }
@@ -211,23 +237,31 @@ function useWordAnswer(thematic, progression) {
         if (suggestionIndex > -1) {
           addLetter(suggestionIndex, fullAnswer.focusedLetter);
         }
-      }else{
-        
-          if(value.which === 13){
-            if(statusAnswer === true){
-              progression.fullfillProgress(word.index, thematic, score);
-            } else {
-              resetWord();
-            }
+      } else {
+        if (value.which === 13) {
+          if (statusAnswer === true) {
+            progression.fullfillProgress(word.index, thematic, score);
+          } else {
+            resetWord();
           }
-        
+        }
       }
     };
     window.addEventListener("keydown", handleKeydown);
     return () => {
       window.removeEventListener("keydown", handleKeydown);
     };
-  }, [addLetter, fullAnswer, word, removeLast, statusAnswer, progression, resetWord, thematic, score]);
+  }, [
+    addLetter,
+    fullAnswer,
+    word,
+    removeLast,
+    statusAnswer,
+    progression,
+    resetWord,
+    thematic,
+    score
+  ]);
 
   const actions = {
     resetWord,
@@ -236,71 +270,118 @@ function useWordAnswer(thematic, progression) {
     removeLast
   };
 
-  return [word, fullAnswer, addLetter, statusAnswer, actions, thematicProgress, score];
+  return [
+    word,
+    fullAnswer,
+    addLetter,
+    statusAnswer,
+    actions,
+    thematicProgress,
+    score
+  ];
 }
 
 function Game() {
   let { thematic } = useParams();
-  const { progress, updateThematicProgress, fullfillProgress, updateThematic, reinitThematicProgress } = useThematic();
+  const {
+    progress,
+    updateThematicProgress,
+    fullfillProgress,
+    updateThematic,
+    reinitThematicProgress
+  } = useThematic();
 
   const progression = {
     progress,
     fullfillProgress,
     updateThematicProgress,
     updateThematic
-  }
+  };
 
-  const [word, answer, addLetter, statusAnswer, actions, thematicProgress, score] = useWordAnswer(thematic, progression);
-
+  const [
+    word,
+    answer,
+    addLetter,
+    statusAnswer,
+    actions,
+    thematicProgress,
+    score
+  ] = useWordAnswer(thematic, progression);
 
   const resetThematic = () => {
     // Reset a false les mots dans le localstorage (mais ne retouche pas au state)
     reinitThematicProgress(thematic, thematicProgress.totalThematic);
     // Update le hooks pour provoquer un refresh
     updateThematicProgress(thematic);
-  }
+  };
 
   const handleLetter = (suggestionIndex, answerIndex) => {
     addLetter(suggestionIndex, answerIndex);
   };
 
-
   const handleNext = () => {
     fullfillProgress(word.index, thematic, score);
-  }
+  };
 
   return (
     <>
       <div
-        className={`contentWraper${
-          statusAnswer === true ? " win" : ""}${
-          statusAnswer === false ? " loose" : ""}${
-          thematicProgress.unsolved === 0 ? " solved" : ""
-          }
+        className={`contentWraper${statusAnswer === true ? " win" : ""}${
+          statusAnswer === false ? " loose" : ""
+        }${thematicProgress.unsolved === 0 ? " solved" : ""}
         `}
       >
         <div className="menu">
-          <Link to="/">
-            <Text tid="home" />
-          </Link>
+          <div className="menuWrapper">
+            <Link to="/">
+              <Text tid="home" />
+            </Link>
+            <span
+              className="lk restartAll"
+              title={Text({ tid: "resetEveryThing" })}
+              onClick={resetThematic}
+            >
+              <Text tid="resetForThematic" />
+            </span>
+          </div>
         </div>
         <div className="progressBar">
-          <div 
-            title={`${Text({tid: "YouSolved"})} ${thematicProgress.totalThematic - thematicProgress.unsolved} ${Text({tid: "wordsOn"})} ${thematicProgress.totalThematic}`}
+          <div
+            title={`${Text({
+              tid: "YouSolved"
+            })} ${thematicProgress.totalThematic -
+              thematicProgress.unsolved} ${Text({ tid: "wordsOn" })} ${
+              thematicProgress.totalThematic
+            }`}
             className="bar"
-            style={{"clipPath": `inset(0% ${getPercent(thematicProgress.totalThematic, thematicProgress.unsolved)} 0% 0%)`}}>
-          </div>
+            style={{
+              clipPath: `inset(0% ${getPercent(
+                thematicProgress.totalThematic,
+                thematicProgress.unsolved
+              )} 0% 0%)`
+            }}
+          ></div>
         </div>
 
         <Score score={score} total={thematicProgress.totalThematic} />
 
-        {thematicProgress.unsolved !== 0 ? 
+        {thematicProgress.unsolved !== 0 ? (
           <>
-            <div className={`key${word.hint.split("").length > 10 ? " longWord" : " shortWord"}`}>{word.hint}</div>
+            <div
+              className={`key${
+                word.hint.split("").length > 10 ? " longWord" : " shortWord"
+              }`}
+            >
+              {word.hint}
+            </div>
             <AnswerInput word={word} answer={answer} onLetter={handleLetter} />
-            <span onClick={actions.resetWord} className="retry">Retry</span>
-            <span onClick={handleNext} className="next">Next</span>
-            {(!statusAnswer && statusAnswer !== false) && (
+            <span onClick={actions.resetWord} className="retry">
+              Retry
+            </span>
+            <span onClick={handleNext} className="next">
+              Next
+            </span>
+            {!statusAnswer && statusAnswer !== false && (
               <ul className="options">
                 <li>
                   <span onClick={actions.resetWord} className="eraseAll">
@@ -327,18 +408,14 @@ function Game() {
               onLetter={handleLetter}
             />
             <footer>
-              <span
-                className="lk restartAll"
-                title={Text({tid: "resetEveryThing"})}
-                onClick={resetThematic}
-              >
-                <Text tid="resetForThematic" />
-              </span>
+              <a href="https://github.com/korvus/devinator">Github</a>
+              <a href="https://simonertel.net">Write me</a>
+              <a href="https://simon.gallery/shop">T-shirts</a>
             </footer>
           </>
-        : <Completed total={thematicProgress.totalThematic} />}
-
-
+        ) : (
+          <Completed total={thematicProgress.totalThematic} />
+        )}
       </div>
     </>
   );
