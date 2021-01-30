@@ -1,0 +1,18 @@
+{
+	"test13":{"nom": "Dobro jutro"},
+	"test12":{"nom": "Dober večer"},
+	"test11":{"nom": "Lahko noč"},
+    "test0":{"nom": "Nasvidenje"},
+	"test":{"nom": "Dobro jutro"},
+	"test1":{"nom": "Dober večer"},
+	"test.":{"nom": "Lahko noč"},
+	"test4":{"nom": "Nasvidenje"},
+	"test2":{"nom": "Dobro jutro"},
+	"test3":{"nom": "Dober večer"},
+	"test5":{"nom": "Lahko noč"},
+    "test6":{"nom": "Nasvidenje"},
+	"test7":{"nom": "Dobro jutro"},
+	"test8":{"nom": "Dober večer"},
+	"test9":{"nom": "Lahko noč"},
+	"test10":{"nom": "Nasvidenje"}
+}
