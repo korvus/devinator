@@ -71,7 +71,7 @@ export function ThematicProvider({ children }) {
     } else {
       const existantThematic = JSON.parse(currentProgress)[thematic];
       if(!existantThematic){
-        const toStore = initProgress(thematic, currentProgress);
+        const toStore = await initProgress(thematic, currentProgress);
         setProgress(toStore);
       } else {
         setProgress(currentProgress);
