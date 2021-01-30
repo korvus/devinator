@@ -46,5 +46,21 @@ export const themeSummaries = [
     "alphabet": "en",
     "langue": "en",
     "number": 27
+  },
+  {
+    "id": "frenchlesson",
+    "desc": "guess some basics french words",
+    "visible": true,
+    "alphabet": "fr",
+    "langue": "en",
+    "number": 35
+  },
+  {
+    "id": "bolchevisme",
+    "desc": "Retrouvez le nom original des villes renommées par les bolchéviques.",
+    "visible": true,
+    "alphabet": "fr",
+    "langue": "fr",
+    "number": 21
   }
 ]

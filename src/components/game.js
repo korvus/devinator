@@ -6,12 +6,13 @@ import AnswerInput from "./answer-input";
 import Proposal from "./proposal";
 import Score from "./score";
 import Completed from "./completed";
+import ProgressBar from "./ProgressBar";
+import Footer from "./footer";
 import {
   lettersMatch,
   extractOnlySuggestionId,
   extractIndexBaseOnFalse,
-  isEqual,
-  getPercent
+  isEqual
 } from "../utils";
 import { useParams, Link } from "react-router-dom";
 
@@ -19,7 +20,7 @@ const WORD_DEFAULT = { hint: "", answer: "", suggestion: [] };
 const THEMATIC_DEFAULT = { unsolved: 10, totalThematic: 0 };
 const SCORE_DEFAULT = 0;
 
-async function fetchWord(thematic, progress, upProgression) {
+async function fetchWord(thematic, progress, updateThematicProgress) {
   if (!thematic || !progress) {
     return [WORD_DEFAULT, THEMATIC_DEFAULT];
   }
@@ -34,7 +35,7 @@ async function fetchWord(thematic, progress, upProgression) {
   progress = typeof progress === "object" ? progress : JSON.parse(progress);
 
   if (Object.keys(progress).length === 0 || progress[thematic] === undefined) {
-    upProgression(thematic);
+    await updateThematicProgress(thematic);
     return [WORD_DEFAULT, THEMATIC_DEFAULT];
   }
 
@@ -83,7 +84,7 @@ function useWordAnswer(thematic, progression) {
 
   const refreshCancel = useRef(() => {});
   const refresh = useCallback(
-    (thematic, progression, upProgression, updateThematic) => {
+    (thematic, progression, updateThematicProgress, updateThematic) => {
       updateThematic(thematic);
       // console.log("updateThematic", updateThematic);
       let cancelled = false;
@@ -96,7 +97,7 @@ function useWordAnswer(thematic, progression) {
         const dataAboutWordAndThematic = await fetchWord(
           thematic,
           progress,
-          upProgression
+          updateThematicProgress
         );
         if (!cancelled) {
           setWord(dataAboutWordAndThematic[0]);
@@ -312,6 +313,7 @@ function Game() {
     // Reset a false les mots dans le localstorage (mais ne retouche pas au state)
     reinitThematicProgress(thematic, thematicProgress.totalThematic);
     // Update le hooks pour provoquer un refresh
+    console.log("update le hook");
     updateThematicProgress(thematic);
   };
 
@@ -345,23 +347,8 @@ function Game() {
             </span>
           </div>
         </div>
-        <div className="progressBar">
-          <div
-            title={`${Text({
-              tid: "YouSolved"
-            })} ${thematicProgress.totalThematic -
-              thematicProgress.unsolved} ${Text({ tid: "wordsOn" })} ${
-              thematicProgress.totalThematic
-            }`}
-            className="bar"
-            style={{
-              clipPath: `inset(0% ${getPercent(
-                thematicProgress.totalThematic,
-                thematicProgress.unsolved
-              )} 0% 0%)`
-            }}
-          ></div>
-        </div>
+
+        <ProgressBar prog={thematicProgress} />
 
         <Score score={score} total={thematicProgress.totalThematic} />
 
@@ -407,11 +394,7 @@ function Game() {
               statusAnswer={statusAnswer}
               onLetter={handleLetter}
             />
-            <footer>
-              <a href="https://github.com/korvus/devinator">Github</a>
-              <a href="https://simonertel.net">Write me</a>
-              <a href="https://simon.gallery/shop">T-shirts</a>
-            </footer>
+            <Footer />
           </>
         ) : (
           <Completed total={thematicProgress.totalThematic} />

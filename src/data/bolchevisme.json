@@ -1,0 +1,23 @@
+{
+	"Stalingrad":{"nom": "Volgograd"},
+	"Stalinabad":{"nom": "Douchanbe"},
+	"Staliniri":{"nom": "Tskhinvali"},
+	"Stalino":{"nom": "Donetsk"},
+	"Vorochilovgrad":{"nom": "Lougansk"},
+	"Jdanov":{"nom": "Marioupol"},
+	"Gorki":{"nom": "Nijni Novgorod"},
+	"Léningrad":{"nom": "Saint-Pétersbourg"},
+	"Kouïbychev":{"nom": "Samara"},
+	"Molotov":{"nom": "Perm"},
+	"Stalinogorsk":{"nom": "Novomoskovk"},
+	"Oulianovsk":{"nom": "Simbirsk"},
+	"Kirov":{"nom": "Viatka"},
+    "Vorochilov":{"nom": "Oussourisk"},
+    "Kalinine": {"non": "Tver"},
+    "Troïtsk": {"non": "Tchapaïevsk"},
+    "Leninsk": {"non": "Taldom"},
+    "Vorochilovsk": {"non": "Stavropol"},
+    "Petrograd": {"non": "Saint-Pétersbourg"},
+    "Kaliningrad": {"non": "Korovlev"},
+    "Molotovsk": {"non": "Nolinsk"}
+}

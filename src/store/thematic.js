@@ -55,18 +55,17 @@ export function ThematicProvider({ children }) {
     localStorage.setItem(LOCAL_STORAGE_KEY, value);
     // ** Pose problème
     setThematic(value);
-
   }, []);
 
   // Initialise le json des progressions en checkant si la progression pour la thématique donnée existe ou pas.
-  const updateThematicProgress = useCallback((thematic) => {
+  const updateThematicProgress = useCallback(async (thematic) => {
     if (thematic === undefined) {
       throw new Error("updateThematicProgress: the value is undefined");
     }
     const currentProgress = localStorage.getItem(LOCAL_STORAGE_KEY_PROGRESS);
     // Si le cookie n'existe mm pas
     if(currentProgress === null){
-      const toStore = initProgress(thematic, null);
+      const toStore = await initProgress(thematic, null);
       setProgress(toStore);
     // Si il existe, on va checker si la thématique existe
     } else {

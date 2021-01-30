@@ -10,6 +10,7 @@ const Completed = ({total}) => {
     // Reset a false les mots dans le localstorage (mais ne retouche pas au state)
     reinitThematicProgress(thematic, total);
     // Update le hooks pour provoquer un refresh
+    console.log("^plop");
     updateThematicProgress(thematic);
   }
 

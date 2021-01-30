@@ -8,8 +8,8 @@ const Score = ({score, total}) => {
 
     const { thematic } = useThematic();
     let solvedWords = 0;
-    let totalScore = 0;
     let nbSolved = 0;
+    // let totalScore = 0;
 
     const currentProgress = localStorage.getItem(LOCAL_STORAGE_KEY_PROGRESS) ? localStorage.getItem(LOCAL_STORAGE_KEY_PROGRESS) : false;
 
@@ -28,7 +28,7 @@ const Score = ({score, total}) => {
                     return parseInt(a)
                 }
             }, 0);
-            totalScore = (total*5)+5;
+            // totalScore = (total*5)+5;
         }
     }
     const liveScore = solvedWords+score;

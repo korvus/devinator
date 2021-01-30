@@ -1,6 +1,7 @@
 import React from "react";
 import { Text } from "../store/lang";
 import { Link } from "react-router-dom";
+import Footer from "./footer.js";
 import LanguageSelector from "./languageSelector";
 
 const Notfound = () => {
@@ -20,14 +21,7 @@ const Notfound = () => {
                     <Text tid="notFound" />
                 </h2>
             </div>
-            <footer>
-                <span
-                className="lk restartAll"
-                title={Text({tid: "resetEveryThing"})}
-                >
-                    <Text tid="resetForThematic" />
-                </span>
-            </footer>
+            <Footer />
         </div>
     );
 }
