@@ -6,13 +6,16 @@ import AnswerInput from "./answer-input";
 import Proposal from "./proposal";
 import Score from "./score";
 import Completed from "./completed";
+import ButtonActions from "./ButtonActions.js";
 import ProgressBar from "./ProgressBar";
 import Footer from "./footer";
+import { useScore } from "../store/score";
+
 import {
   lettersMatch,
   extractOnlySuggestionId,
   extractIndexBaseOnFalse,
-  isEqual
+  isEqual,
 } from "../utils";
 import { useParams, Link } from "react-router-dom";
 
@@ -56,8 +59,8 @@ async function fetchWord(thematic, progress, updateThematicProgress) {
       WORD_DEFAULT,
       {
         unsolved: unsolvedIndexWords.length,
-        totalThematic: listAllWords.length
-      }
+        totalThematic: listAllWords.length,
+      },
     ];
   }
 
@@ -66,12 +69,12 @@ async function fetchWord(thematic, progress, updateThematicProgress) {
       index: wordIndex,
       hint: word[0],
       answer: word[1].nom,
-      suggestion: getSuggestion(word[1].nom, thematic)
+      suggestion: getSuggestion(word[1].nom, thematic),
     },
     {
       unsolved: unsolvedIndexWords.length,
-      totalThematic: listAllWords.length
-    }
+      totalThematic: listAllWords.length,
+    },
   ];
 }
 
@@ -81,12 +84,12 @@ function useWordAnswer(thematic, progression) {
   const [currentAnswer, setCurrentAnswer] = useState([]);
   const [statusAnswer, setStatusAnswer] = useState(null);
   const [thematicProgress, setThematicProgress] = useState(THEMATIC_DEFAULT);
+  const notifyScore = useScore();
 
   const refreshCancel = useRef(() => {});
   const refresh = useCallback(
     (thematic, progression, updateThematicProgress, updateThematic) => {
       updateThematic(thematic);
-      // console.log("updateThematic", updateThematic);
       let cancelled = false;
       refreshCancel.current();
       refreshCancel.current = () => {
@@ -100,12 +103,12 @@ function useWordAnswer(thematic, progression) {
           updateThematicProgress
         );
         if (!cancelled) {
-          setWord(dataAboutWordAndThematic[0]);
           setThematicProgress(dataAboutWordAndThematic[1]);
           setStatusAnswer(null);
           setCurrentAnswer(
             Array(dataAboutWordAndThematic[0].answer.length).fill(null)
           );
+          setWord(dataAboutWordAndThematic[0]);
           setScore(0);
         }
       };
@@ -128,19 +131,19 @@ function useWordAnswer(thematic, progression) {
       progression.progress,
       progression.updateThematicProgress,
       progression.updateThematic,
-      refresh
+      refresh,
     ]
   );
 
   const fullAnswer = useMemo(
     () => ({
       focusedLetter: currentAnswer.findIndex(
-        suggestionIndex => suggestionIndex === null
+        (suggestionIndex) => suggestionIndex === null
       ),
-      letters: currentAnswer.map(suggestionIndex => ({
+      letters: currentAnswer.map((suggestionIndex) => ({
         suggestionIndex,
-        letter: word.suggestion[suggestionIndex] ?? ""
-      }))
+        letter: word.suggestion[suggestionIndex] ?? "",
+      })),
     }),
     [currentAnswer, word]
   );
@@ -149,6 +152,7 @@ function useWordAnswer(thematic, progression) {
     const firstUnsolvedIndex = fullAnswer.letters.findIndex(
       (letter, i) => !lettersMatch(letter.letter, word.answer[i])
     );
+    console.log("first unsolved Index", firstUnsolvedIndex);
     const suggestionsIndex = extractOnlySuggestionId(fullAnswer);
     const suggestionIndex = word.suggestion.findIndex((letter, index) => {
       return (
@@ -159,7 +163,8 @@ function useWordAnswer(thematic, progression) {
     if (suggestionIndex > -1) {
       addLetter(suggestionIndex, firstUnsolvedIndex);
     }
-    setScore(s => s - 1);
+    notifyScore("-1", "failure");
+    setScore((s) => s - 1);
   };
 
   const solution = () => {
@@ -176,7 +181,8 @@ function useWordAnswer(thematic, progression) {
         addLetter(suggestionIndex, i);
       }
     });
-    setScore(s => s - 5);
+    notifyScore("-5", "failure");
+    setScore((s) => s - 5);
   };
 
   const resetWord = useCallback(() => {
@@ -184,24 +190,27 @@ function useWordAnswer(thematic, progression) {
   }, [word.answer.length]);
 
   const addLetter = useCallback((suggestionIndex, answerIndex) => {
-    setCurrentAnswer(answer => {
+    setCurrentAnswer((answer) => {
       answer[answerIndex] = suggestionIndex;
       return [...answer];
     });
   }, []);
 
-  const victory = (fullAnswer, word) => {
+  const handleEndWord = (fullAnswer, word) => {
     const typed = fullAnswer.letters.reduce((a, { letter }) => a + letter, "");
     if (
       fullAnswer.letters.length === fullAnswer.focusedLetter ||
-      fullAnswer.focusedLetter === -1
+      fullAnswer.focusedLetter === -1 && 
+      fullAnswer.letters.length > 0
     ) {
       if (isEqual(typed, word.answer)) {
-        setScore(s => s + 5);
+        setScore((s) => s + 5);
         setStatusAnswer(true);
+        notifyScore("+5", "victory");
       } else {
-        setScore(s => s - 2);
+        setScore((s) => s - 2);
         setStatusAnswer(false);
+        notifyScore("-2", "defeat");
       }
     } else {
       setStatusAnswer(null);
@@ -209,8 +218,8 @@ function useWordAnswer(thematic, progression) {
   };
 
   const removeLast = useCallback(() => {
-    setCurrentAnswer(a => {
-      const nbFilled = a.filter(indexSuggestion => indexSuggestion !== null)
+    setCurrentAnswer((a) => {
+      const nbFilled = a.filter((indexSuggestion) => indexSuggestion !== null)
         .length;
       const afterRemovedLastLetter = a.map((indexSuggestion, i) => {
         return i < nbFilled - 1 ? indexSuggestion : null;
@@ -220,11 +229,11 @@ function useWordAnswer(thematic, progression) {
   }, []);
 
   useEffect(() => {
-    victory(fullAnswer, word);
+    handleEndWord(fullAnswer, word);
   }, [fullAnswer, word]);
 
   useEffect(() => {
-    const handleKeydown = value => {
+    const handleKeydown = (value) => {
       if (statusAnswer === null) {
         if (value.which === 8) {
           removeLast();
@@ -261,14 +270,14 @@ function useWordAnswer(thematic, progression) {
     progression,
     resetWord,
     thematic,
-    score
+    score,
   ]);
 
   const actions = {
     resetWord,
     jocker,
     solution,
-    removeLast
+    removeLast,
   };
 
   return [
@@ -278,7 +287,7 @@ function useWordAnswer(thematic, progression) {
     statusAnswer,
     actions,
     thematicProgress,
-    score
+    score,
   ];
 }
 
@@ -289,14 +298,14 @@ function Game() {
     updateThematicProgress,
     fullfillProgress,
     updateThematic,
-    reinitThematicProgress
+    reinitThematicProgress,
   } = useThematic();
 
   const progression = {
     progress,
     fullfillProgress,
     updateThematicProgress,
-    updateThematic
+    updateThematic,
   };
 
   const [
@@ -306,14 +315,13 @@ function Game() {
     statusAnswer,
     actions,
     thematicProgress,
-    score
+    score,
   ] = useWordAnswer(thematic, progression);
 
   const resetThematic = () => {
     // Reset a false les mots dans le localstorage (mais ne retouche pas au state)
     reinitThematicProgress(thematic, thematicProgress.totalThematic);
     // Update le hooks pour provoquer un refresh
-    console.log("update le hook");
     updateThematicProgress(thematic);
   };
 
@@ -362,31 +370,13 @@ function Game() {
               {word.hint}
             </div>
             <AnswerInput word={word} answer={answer} onLetter={handleLetter} />
-            <span onClick={actions.resetWord} className="retry">
-              Retry
-            </span>
-            <span onClick={handleNext} className="next">
-              Next
-            </span>
-            {!statusAnswer && statusAnswer !== false && (
-              <ul className="options">
-                <li>
-                  <span onClick={actions.resetWord} className="eraseAll">
-                    <Text tid="clear" />
-                  </span>
-                </li>
-                <li>
-                  <span onClick={actions.solution} className="solve">
-                    <Text tid="solution" />
-                  </span>
-                </li>
-                <li>
-                  <span onClick={actions.jocker} className="jocker1">
-                    <Text tid="Jocker" />
-                  </span>
-                </li>
-              </ul>
-            )}
+
+            <span onClick={actions.resetWord} className="retry">Retry</span>
+
+            <span onClick={handleNext} className="next">Next</span>
+
+            <ButtonActions visible={!statusAnswer && statusAnswer !== false} actions={actions} /> 
+            
             <Proposal
               word={word}
               cancel={actions.removeLast}

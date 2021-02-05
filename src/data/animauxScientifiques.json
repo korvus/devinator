@@ -1,0 +1,22 @@
+{
+	"Chat domestique":{"nom": "Felis silvestris catus"},
+	"Chien":{"nom": "Canis lupus familiaris"},
+	"Vache":{"nom": "Bos Taurus"},
+	"Lapin de garenne":{"nom": "Oryctolagus cuniculus"},
+	"Moutons":{"nom": "Ovis aries"},
+	"Chèvre domestique":{"nom": "Capra hircus Linnaeus"},
+	"La belette":{"nom": "Mustela nivalis"},
+	"Grand requin blanc":{"nom": "Carcharodon carcharias"},
+	"Cheval":{"nom": "Equus caballus"},
+	"Poule domestique":{"nom": "Gallus gallus domesticus"},
+	"Canard colvert":{"nom": "Anas platyrhynchos"},
+	"Loup gris":{"nom": "Canis lupus"},
+	"Ours brun":{"nom": "Ursus arctos"},
+	"les humains":{"nom": "Homo Sapiens"},
+	"Oie de Toulouse":{"nom": "Anser anser"},
+	"Fourmis":{"nom": "Formicidae"},
+	"Corbeau":{"nom": "Corvus"},
+	"Le pou (de l'humain)":{"nom": "Pediculus humanus"},
+	"Le Dronte de Maurice (le Dodo)":{"nom": "Raphus cucullatus"},
+	"La mouche domestique":{"nom": "Musca domestica"}
+}

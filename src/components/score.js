@@ -16,6 +16,7 @@ const Score = ({score, total}) => {
     if(currentProgress){
         let existing = JSON.parse(currentProgress);
         const thematicScore = existing[thematic];
+
         if(!thematicScore){
             solvedWords = 0+score;
         } else {
@@ -46,16 +47,21 @@ const Score = ({score, total}) => {
         setTooltip(false)
     }
 
+    // console.log("score", percent, liveScore, nbSolved," -> ", nbSolved*5);
+
     return (
-        <div onMouseLeave={closeTooltip} onMouseEnter={openTooltip} className={`scoreWrapper rate${classColor}${solvedWords === 0 ? " h" : ""}`}>
+        <div onMouseLeave={closeTooltip} onMouseEnter={openTooltip} className={`scoreWrapper rate${classColor} ${solvedWords === 0 ? " unsolved" : ""}`}>
             <div className="score">
                 <small className="label">
                     <Text tid="reussite" />
                 </small>
-                <div className="scoreNumber">
-                    <span className="liveScore">
-                        {percent}
-                    </span>%
+                {solvedWords !== 0 && <div className="scoreNumber">
+                        <span className="liveScore">
+                            {percent}
+                        </span>%
+                </div>}
+                <div className="displayForMobile points">
+                    <b>{liveScore}pts</b> / <span>{nbSolved*5}pts</span>
                 </div>
             </div>
             <div className="tooltip" style={{"display": `${tooltip ? "block" : "none"}`}} >

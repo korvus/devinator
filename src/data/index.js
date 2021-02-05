@@ -40,12 +40,44 @@ export const themeSummaries = [
     "number": 25
   },
   {
+    "id": "leçonSloveneFamille",
+    "desc": "Trouver les correspondances en slovènes",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "fr",
+    "number": 33
+  },
+  {
     "id": "europeanCapitals",
     "desc": "Find all the capitals for European continent",
     "visible": true,
     "alphabet": "en",
     "langue": "en",
     "number": 27
+  },
+  {
+    "id": "africanCapitals",
+    "desc": "Find all the capitals for African continent",
+    "visible": true,
+    "alphabet": "en",
+    "langue": "en",
+    "number": 53
+  },
+  {
+    "id": "animauxScientifiques",
+    "desc": "Trouver le nom scientifique de ces animaux.",
+    "visible": true,
+    "alphabet": "fr",
+    "langue": "fr",
+    "number": 20
+  },
+  {
+    "id": "planets",
+    "desc": "Find all the planets name by their index, starting from the closest to the sun to the farest.",
+    "visible": true,
+    "alphabet": "en",
+    "langue": "en",
+    "number": 8
   },
   {
     "id": "frenchlesson",
