@@ -196,11 +196,11 @@ function useWordAnswer(thematic, progression) {
     });
   }, []);
 
-  const handleEndWord = (fullAnswer, word) => {
+  const handleEndWord = useCallback((fullAnswer, word) => {
     const typed = fullAnswer.letters.reduce((a, { letter }) => a + letter, "");
     if (
-      fullAnswer.letters.length === fullAnswer.focusedLetter ||
-      fullAnswer.focusedLetter === -1 && 
+      (fullAnswer.letters.length === fullAnswer.focusedLetter ||
+        fullAnswer.focusedLetter === -1) &&
       fullAnswer.letters.length > 0
     ) {
       if (isEqual(typed, word.answer)) {
@@ -215,7 +215,7 @@ function useWordAnswer(thematic, progression) {
     } else {
       setStatusAnswer(null);
     }
-  };
+  }, [notifyScore]);
 
   const removeLast = useCallback(() => {
     setCurrentAnswer((a) => {
@@ -230,7 +230,7 @@ function useWordAnswer(thematic, progression) {
 
   useEffect(() => {
     handleEndWord(fullAnswer, word);
-  }, [fullAnswer, word]);
+  }, [fullAnswer, word, handleEndWord]);
 
   useEffect(() => {
     const handleKeydown = (value) => {
@@ -371,12 +371,19 @@ function Game() {
             </div>
             <AnswerInput word={word} answer={answer} onLetter={handleLetter} />
 
-            <span onClick={actions.resetWord} className="retry">Retry</span>
+            <span onClick={actions.resetWord} className="retry">
+              Retry
+            </span>
 
-            <span onClick={handleNext} className="next">Next</span>
+            <span onClick={handleNext} className="next">
+              Next
+            </span>
 
-            <ButtonActions visible={!statusAnswer && statusAnswer !== false} actions={actions} /> 
-            
+            <ButtonActions
+              visible={!statusAnswer && statusAnswer !== false}
+              actions={actions}
+            />
+
             <Proposal
               word={word}
               cancel={actions.removeLast}
