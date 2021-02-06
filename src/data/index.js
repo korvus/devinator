@@ -65,7 +65,7 @@ export const themeSummaries = [
   },
   {
     "id": "animauxScientifiques",
-    "desc": "Trouver le nom scientifique de ces animaux.",
+    "desc": "Trouver la dénomination scientifique en latin de ces animaux.",
     "visible": true,
     "alphabet": "fr",
     "langue": "fr",

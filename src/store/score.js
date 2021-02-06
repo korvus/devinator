@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useCallback } from "react";
 import { useTransition, animated } from "react-spring";
 
 const SPRING_CONFIG = { mass: 1, tension: 110, friction: 20, precision: 0.001 };
@@ -29,12 +29,12 @@ function useAnimatedNotifications() {
 
   const lastId = useRef(0);
 
-  const add = (label, color) => {
-    setItems([
+  const add = useCallback((label, color) => {
+    setItems((items) => [
       ...items,
       { id: lastId.current++, label, color: getNotificationColor(color) },
     ]);
-  };
+  }, []);
 
   return [itemsTransition, add];
 }

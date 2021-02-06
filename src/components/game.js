@@ -196,7 +196,7 @@ function useWordAnswer(thematic, progression) {
     });
   }, []);
 
-  const handleEndWord = useCallback((fullAnswer, word) => {
+  useEffect(() => {
     const typed = fullAnswer.letters.reduce((a, { letter }) => a + letter, "");
     if (
       (fullAnswer.letters.length === fullAnswer.focusedLetter ||
@@ -215,7 +215,8 @@ function useWordAnswer(thematic, progression) {
     } else {
       setStatusAnswer(null);
     }
-  }, [notifyScore]);
+  }, [notifyScore, fullAnswer, word]);
+
 
   const removeLast = useCallback(() => {
     setCurrentAnswer((a) => {
@@ -227,10 +228,6 @@ function useWordAnswer(thematic, progression) {
       return afterRemovedLastLetter;
     });
   }, []);
-
-  useEffect(() => {
-    handleEndWord(fullAnswer, word);
-  }, [fullAnswer, word, handleEndWord]);
 
   useEffect(() => {
     const handleKeydown = (value) => {
