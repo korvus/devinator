@@ -24,6 +24,14 @@ export const themeSummaries = [
     "number": 72
   },
   {
+    "id": "monnaies",
+    "desc": "retrouver le nom des monnaies utilisées dans ces organisations.",
+    "visible": true,
+    "alphabet": "fr",
+    "langue": "fr",
+    "number": 39
+  },
+  {
     "id": "leçonSloveneBases",
     "desc": "Trouver les correspondances en slovènes",
     "visible": false,

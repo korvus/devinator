@@ -148,7 +148,8 @@ function useWordAnswer(thematic, progression) {
     [currentAnswer, word]
   );
 
-  const jocker = () => {
+  const jocker = (e) => {
+    e.target.blur();
     const firstUnsolvedIndex = fullAnswer.letters.findIndex(
       (letter, i) => !lettersMatch(letter.letter, word.answer[i])
     );
