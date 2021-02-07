@@ -32,6 +32,14 @@ export const themeSummaries = [
     "number": 39
   },
   {
+    "id": "pseudonymes",
+    "desc": "Saurez vous retrouver le prénom original de ces personnalités publiques ?",
+    "visible": true,
+    "alphabet": "fr",
+    "langue": "fr",
+    "number": 39
+  },
+  {
     "id": "leçonSloveneBases",
     "desc": "Trouver les correspondances en slovènes",
     "visible": false,

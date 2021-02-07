@@ -23,7 +23,7 @@
 	"huit":{"nom": "osem"},
 	"Neuf":{"nom": "devet"},
 	"nom":{"nom": "priimek"},
-    "sexe":{"nom": "spol"},
+    "genre":{"nom": "spol"},
     "adresse":{"nom": "naslov"},
     "prénom":{"nom": "ime"},
     "signature":{"nom": "podpis"},
