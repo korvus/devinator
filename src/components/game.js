@@ -155,6 +155,11 @@ function useWordAnswer(thematic, progression) {
     );
     console.log("first unsolved Index", firstUnsolvedIndex);
     const suggestionsIndex = extractOnlySuggestionId(fullAnswer);
+    /*
+    console.log("suggestionsIndex", suggestionsIndex);
+    console.log("word.answer[firstUnsolvedIndex]", word.answer[firstUnsolvedIndex]);
+    console.log("word.suggestion", word.suggestion);
+    */
     const suggestionIndex = word.suggestion.findIndex((letter, index) => {
       return (
         lettersMatch(letter, word.answer[firstUnsolvedIndex]) &&
@@ -163,6 +168,14 @@ function useWordAnswer(thematic, progression) {
     });
     if (suggestionIndex > -1) {
       addLetter(suggestionIndex, firstUnsolvedIndex);
+    }
+    if ( suggestionIndex === -1 ){
+      const indexLetterAlreayTooken = word.suggestion.findIndex(letter => lettersMatch(letter, word.answer[firstUnsolvedIndex]));
+      const indexAnswerUsingLetter = suggestionsIndex.findIndex(indexSuggestion => indexLetterAlreayTooken === indexSuggestion)
+      // console.log("switch les valeurs", indexLetterAlreayTooken, " and ", suggestionsIndex[firstUnsolvedIndex], "dont les index dans le tableau sont : ", indexAnswerUsingLetter, firstUnsolvedIndex);
+      // addLetter reçoit en premier argument l'index des lettres des suggestions
+      addLetter(indexLetterAlreayTooken, firstUnsolvedIndex);
+      addLetter(suggestionsIndex[firstUnsolvedIndex], indexAnswerUsingLetter);
     }
     notifyScore("-1", "failure");
     setScore((s) => s - 1);

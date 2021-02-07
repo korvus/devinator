@@ -405,6 +405,7 @@ background: linear-gradient(to bottom, #f2f6f8 0%,#d8e1e7 50%,#b5c6d0 51%,#e0eff
   font-weight: bold;
   text-shadow: none;
   font-size: 40px;
+  text-shadow: 0 0 5px #fff;
 }
 
 .proposaletter:hover,

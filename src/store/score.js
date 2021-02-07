@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState, useCallback } from "react";
 import { useTransition, animated } from "react-spring";
 
-const SPRING_CONFIG = { mass: 1, tension: 110, friction: 20, precision: 0.001 };
+const SPRING_CONFIG = { mass: 1, tension: 40, friction: 20, precision: 0.001 };
 
 const getNotificationColor = (color) => {
   if (color === "failure") return "#f00";
@@ -64,7 +64,7 @@ export function ScoreProvider({ children }) {
                         range: [0, 0.3, 0.9, 1],
                         output: [0, 1, 1, 1],
                       })
-                      .interpolate((p) => `translate(${100 * p}px, 50px)`),
+                      .interpolate((p) => `translate(${40 * p}px, 50px)`),
                     color,
                   }}
                 >
