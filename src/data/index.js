@@ -37,7 +37,7 @@ export const themeSummaries = [
     "visible": true,
     "alphabet": "fr",
     "langue": "fr",
-    "number": 39
+    "number": 69
   },
   {
     "id": "leçonSloveneBases",
@@ -62,6 +62,14 @@ export const themeSummaries = [
     "alphabet": "sl",
     "langue": "fr",
     "number": 33
+  },
+  {
+    "id": "leçonSloveneIm",
+    "desc": "Trouver les correspondances en slovènes",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "fr",
+    "number": 26
   },
   {
     "id": "europeanCapitals",
