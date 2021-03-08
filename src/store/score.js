@@ -10,6 +10,13 @@ const getNotificationColor = (color) => {
   return "#000";
 };
 
+const getPosition = (type) => {
+  if (type === "failure") return -40;
+  if (type === "victory") return 0;
+  if (type === "defeat") return -20;
+  return -40;
+};
+
 function useAnimatedNotifications() {
   const [items, setItems] = useState([]);
 
@@ -32,7 +39,7 @@ function useAnimatedNotifications() {
   const add = useCallback((label, color) => {
     setItems((items) => [
       ...items,
-      { id: lastId.current++, label, color: getNotificationColor(color) },
+      { id: lastId.current++, label, color: getNotificationColor(color), top: getPosition(color) },
     ]);
   }, []);
 
@@ -50,7 +57,7 @@ export function ScoreProvider({ children }) {
         <div className="col">
           <div className="scoreContext">
             {notifications.map(
-              ({ props: { progress }, item: { label, color }, key }) => (
+              ({ props: { progress }, item: { label, color, top }, key }) => (
                 <animated.div
                   className="pts"
                   key={key}
@@ -66,6 +73,7 @@ export function ScoreProvider({ children }) {
                       })
                       .interpolate((p) => `translate(${40 * p}px, 50px)`),
                     color,
+                    top
                   }}
                 >
                   {label}

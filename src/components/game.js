@@ -153,7 +153,7 @@ function useWordAnswer(thematic, progression) {
     const firstUnsolvedIndex = fullAnswer.letters.findIndex(
       (letter, i) => !lettersMatch(letter.letter, word.answer[i])
     );
-    console.log("first unsolved Index", firstUnsolvedIndex);
+    // console.log("first unsolved Index", firstUnsolvedIndex);
     const suggestionsIndex = extractOnlySuggestionId(fullAnswer);
     /*
     console.log("suggestionsIndex", suggestionsIndex);
