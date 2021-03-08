@@ -329,6 +329,8 @@ function Game() {
     score,
   ] = useWordAnswer(thematic, progression);
 
+  const [hint, complement] = word.hint.split("@@");
+
   const resetThematic = () => {
     // Reset a false les mots dans le localstorage (mais ne retouche pas au state)
     reinitThematicProgress(thematic, thematicProgress.totalThematic);
@@ -378,7 +380,8 @@ function Game() {
                 word.hint.split("").length > 10 ? " longWord" : " shortWord"
               }`}
             >
-              {word.hint}
+              {hint}
+              {complement && <span>{complement}</span>}
             </div>
             <AnswerInput word={word} answer={answer} onLetter={handleLetter} />
 
