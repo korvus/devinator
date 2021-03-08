@@ -325,7 +325,7 @@ p{font-size:3em;margin:0;}
 
 .key{font-size:100px;text-align:center;display:block;font-weight:bold;margin:0 auto 30px auto;width: 900px;padding: 0 100px;box-sizing: border-box;}
 .key.longWord{font-size: 6vw;}
-.key.longWord span{
+.key span{
   color: #999;
   font-size: 2vw;
   font-weight: normal;
