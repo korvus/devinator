@@ -375,13 +375,15 @@ function Game() {
 
         {thematicProgress.unsolved !== 0 ? (
           <>
-            <div
-              className={`key${
-                word.hint.split("").length > 10 ? " longWord" : " shortWord"
-              }`}
-            >
-              {hint}
-              {complement && <span>{complement}</span>}
+            <div className="wrapperHint">
+              <div
+                className={`key${
+                  word.hint.split("").length > 10 ? " longWord" : " shortWord"
+                }`}
+              >
+                {hint}
+              </div>
+              {complement && <span className="hint">{complement}</span>}
             </div>
             <AnswerInput word={word} answer={answer} onLetter={handleLetter} />
 
