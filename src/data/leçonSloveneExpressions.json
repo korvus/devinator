@@ -1,11 +1,11 @@
 {
-	"Bonjour (good morning)":{"nom": "Dobro jutro"},
+	"Bonjour @@(good morning)":{"nom": "Dobro jutro"},
 	"Bonsoir":{"nom": "Dober večer"},
 	"Bonne nuit":{"nom": "Lahko noč"},
 	"Au revoir":{"nom": "Nasvidenje"},
-	"Bonjour (Hello)":{"nom": "Dober dan"},
-	"salut (Hi)":{"nom": "Živjo"},
-	"Salut (Bye)":{"nom": "Adijo"},
+	"Bonjour @@(Hello)":{"nom": "Dober dan"},
+	"salut @@(Hi)":{"nom": "Živjo"},
+	"Salut @@(Bye)":{"nom": "Adijo"},
 	"Excusez moi":{"nom": "Oprostite"},
 	"Merci":{"nom": "Hvala"},
 	"S'il vous plait":{"nom": "Prosim"},
@@ -21,7 +21,7 @@
 	"Qui c'est":{"nom": "Kdo je to"},
 	"Bien":{"nom": "Dobro"},
 	"Mal":{"nom": "Slabo"},
-	"Comment ça va (poli) ?":{"nom": "Kako ste?"},
+	"Comment ça va @@(poli) ?":{"nom": "Kako ste?"},
 	"Content de vous rencontrer":{"nom": "Me veseli"},
-	"Comment ça va (familier) ?":{"nom": "Kako si?"}
+	"Comment ça va @@(familier) ?":{"nom": "Kako si?"}
 }
