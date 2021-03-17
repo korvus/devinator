@@ -72,6 +72,14 @@ export const themeSummaries = [
     "number": 26
   },
   {
+    "id": "leçonSloveneDay",
+    "desc": "Trouver les correspondances en slovènes",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "fr",
+    "number": 35
+  },
+  {
     "id": "europeanCapitals",
     "desc": "Find all the capitals for European continent",
     "visible": true,
