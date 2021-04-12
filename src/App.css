@@ -87,6 +87,14 @@ h1:before{
   margin: 0 auto;
 }
 
+.listAll{
+  width: 900px;
+  margin: 0 auto;
+}
+.listAll ul{
+  margin-bottom: 60px;
+}
+
 ul {padding: 0;}
 ul li{display:block;margin:0;color:#000;text-decoration:none;font-size:14px;cursor: pointer;}
 ul li strong{text-decoration:underline;font-size:20px;}
@@ -481,5 +489,7 @@ footer a{font-size:14px;color:#fff;padding:4px;text-decoration:underline;display
     color: #999;
   }
 
-  .notFound{width: 100%;padding: 10px;box-sizing: border-box;flex-grow: 1;}
+  .notFound,
+  .listAll{width: 100%;padding: 10px;box-sizing: border-box;flex-grow: 1;}
+
 }
