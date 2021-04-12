@@ -72,6 +72,22 @@ export const themeSummaries = [
     "number": 26
   },
   {
+    "id": "leçonSloveneDifficile",
+    "desc": "Mots que je mémorise le plus mal",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "fr",
+    "number": 16
+  },
+  {
+    "id": "leçonSloveneSentenceJournee",
+    "desc": "Phrases slovène générique a prononcer en journée",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "fr",
+    "number": 24
+  },
+  {
     "id": "leçonSloveneDay",
     "desc": "Trouver les correspondances en slovènes",
     "visible": false,

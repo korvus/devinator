@@ -9,6 +9,7 @@ const Score = ({score, total}) => {
     const { thematic } = useThematic();
     let solvedWords = 0;
     let nbSolved = 0;
+    let nbSolvedRoot = 0;
     // let totalScore = 0;
 
     const currentProgress = localStorage.getItem(LOCAL_STORAGE_KEY_PROGRESS) ? localStorage.getItem(LOCAL_STORAGE_KEY_PROGRESS) : false;
@@ -21,6 +22,7 @@ const Score = ({score, total}) => {
             solvedWords = 0+score;
         } else {
             nbSolved = thematicScore.filter(s => s!==false).length;
+            nbSolvedRoot = nbSolved;
             nbSolved = nbSolved === 0 ? 1 : nbSolved;
             solvedWords = thematicScore.reduce((a, c) => {
                 if(c !== false){
@@ -34,6 +36,7 @@ const Score = ({score, total}) => {
     }
     const liveScore = solvedWords+score;
 
+    // console.log("solvedWords", solvedWords);
     let percent = Math.round(solvedWords*100/(nbSolved*5));
     if(solvedWords*100 === nbSolved*5) percent = 100;
     
@@ -50,12 +53,14 @@ const Score = ({score, total}) => {
     // console.log("score", percent, liveScore, nbSolved," -> ", nbSolved*5);
 
     return (
-        <div onMouseLeave={closeTooltip} onMouseEnter={openTooltip} className={`scoreWrapper rate${classColor} ${solvedWords === 0 ? " unsolved" : ""}`}>
+        <div onMouseLeave={closeTooltip} onMouseEnter={openTooltip} className={
+            `scoreWrapper rate${classColor} ${nbSolvedRoot === 0 ? " unsolved" : ""}`
+        }>
             <div className="score">
                 <small className="label">
                     <Text tid="reussite" />
                 </small>
-                {solvedWords !== 0 && <div className="scoreNumber">
+                {nbSolvedRoot > 0 && <div className="scoreNumber">
                         <span className="liveScore">
                             {percent}
                         </span>%

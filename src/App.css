@@ -21,7 +21,7 @@ body{background:#fff;height: 100%;font-family: Arial, cursive;margin:0;padding:0
   height: 102px;
 }
 
-.contentWraper{margin:0 auto;padding:0;overflow:hidden;position:relative;height: 100%;display:flex;flex-direction: column;}
+.contentWraper{margin:0 auto;padding:0;position:relative;height: 100%;display:flex;flex-direction: column;}
 h1{margin:0 auto;border-bottom:1px solid #000;color:#000;padding:10px;width:900px;box-sizing: border-box;}
 h1 span{font-style:italic;font-size:14px;padding-left:10px;font-family:Times, serif;font-weight:normal;}
 h1:before{
@@ -448,8 +448,8 @@ footer a{font-size:14px;color:#fff;padding:4px;text-decoration:underline;display
 
   .secondWrapper {bottom: 0;z-index:2;box-sizing: border-box;}
   .col {width: 100%;}
-  .scoreContext{bottom:10px;top: auto; left:auto;}
-
+  .scoreContext{bottom:10px; top:auto; left:auto;}
+  .contentWraper{overflow: hidden;}
   h1{padding-top: 10px;}
   .scoreWrapper{width: 100%; position: absolute;bottom: 80px;}
   .scoreWrapper .label{padding-right: 10px;}

@@ -1,0 +1,18 @@
+{
+	"Hier":{"nom": "včeraj"},
+	"Ce matin":{"nom": "zjutraj"},
+	"Je me douche":{"nom": "tuširam se"},
+	"J'écoute de la musique":{"nom": "poslušam glasbo"},
+    "Je me repose":{"nom": "počivam"},
+    "je lis": {"nom": "berem"},
+    "fille": {"nom": "punca"},
+    "enchanté": {"nom": "me veseli"},
+    "Salut": {"nom": "živjo"},
+    "Je ne sais pas": {"nom": "Ne jem"},
+    "Pays": {"nom": "Država"},
+    "sept": {"nom": "Sedem"},
+    "Je ne suis pas marié": {"nom": "Nisem poročena"},
+    "C'est ma famille": {"nom": "To je moja družina"},
+    "Quel est votre prénom ?":{"nom": "Kako vam je ime?"},
+    "Voulez vous me donner votre adresse e-mail ?":{"nom": "A mi daš e-naslov?"}
+}
