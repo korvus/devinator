@@ -6,14 +6,6 @@ import Footer from "./footer.js";
 import { LOCAL_STORAGE_KEY_PROGRESS } from "../store/thematic";
 import LanguageSelector from "./languageSelector";
 
-const isInStorage = (id, visible) => {
-    let currentProgress = localStorage.getItem(LOCAL_STORAGE_KEY_PROGRESS);
-    if(currentProgress){currentProgress = JSON.parse(currentProgress)}
-    if(!currentProgress) return visible
-    if(currentProgress[id] !== undefined) return true
-    return visible;
-}
-
 const Solved = ({id}) => {
     let currentProgress = localStorage.getItem(LOCAL_STORAGE_KEY_PROGRESS);
     if(currentProgress){currentProgress = JSON.parse(currentProgress)}
