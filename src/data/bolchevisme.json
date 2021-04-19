@@ -13,11 +13,11 @@
 	"Oulianovsk":{"nom": "Simbirsk"},
 	"Kirov":{"nom": "Viatka"},
     "Vorochilov":{"nom": "Oussourisk"},
-    "Kalinine": {"non": "Tver"},
-    "Troïtsk": {"non": "Tchapaïevsk"},
-    "Leninsk": {"non": "Taldom"},
-    "Vorochilovsk": {"non": "Stavropol"},
-    "Petrograd": {"non": "Saint-Pétersbourg"},
-    "Kaliningrad": {"non": "Korovlev"},
-    "Molotovsk": {"non": "Nolinsk"}
+    "Kalinine": {"nom": "Tver"},
+    "Troïtsk": {"nom": "Tchapaïevsk"},
+    "Leninsk": {"nom": "Taldom"},
+    "Vorochilovsk": {"nom": "Stavropol"},
+    "Petrograd": {"nom": "Saint-Pétersbourg"},
+    "Kaliningrad": {"nom": "Korovlev"},
+    "Molotovsk": {"nom": "Nolinsk"}
 }
