@@ -85,10 +85,26 @@ export const themeSummaries = [
     "visible": false,
     "alphabet": "sl",
     "langue": "fr",
-    "number": 24
+    "number": 25
   },
   {
     "id": "leçonSloveneDay",
+    "desc": "Trouver les correspondances en slovènes",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "fr",
+    "number": 35
+  },
+  {
+    "id": "leçonSloveneConjuguaisonBasic",
+    "desc": "Trouver les correspondances en slovènes",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "fr",
+    "number": 21
+  },
+  {
+    "id": "leçonSloveneFeed",
     "desc": "Trouver les correspondances en slovènes",
     "visible": false,
     "alphabet": "sl",
