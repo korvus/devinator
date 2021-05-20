@@ -18,5 +18,6 @@
     "devinettes": "words to guess",
     "notFound": "No words linked to this thematic.",
     "solved": "solved",
-    "reussite": "Solving rate"
+    "reussite": "Solving rate",
+    "rateWin": "solved"
 }

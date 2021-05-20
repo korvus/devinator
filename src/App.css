@@ -327,6 +327,18 @@ li.theme.gray a{color: #999;}
   height: 8px;
 }
 
+.indicatorProgress.rate0 span {background: linear-gradient(360deg, #f00 0%, #f00 40%, #f00 96%);}
+.indicatorProgress.rate1 span {background: linear-gradient(360deg, #ad0000 0%, #ad0000 40%, #ad0000 96%);}
+.indicatorProgress.rate2 span {background: linear-gradient(360deg, #7a0000 0%, #7a0000 40%, #7a0000 96%);}
+.indicatorProgress.rate3 span {background: linear-gradient(360deg, #81146a 0%, #81146a 40%, #81146a 96%);}
+.indicatorProgress.rate4 span {background: linear-gradient(360deg, #ce86ff 0%, #ce86ff 40%, #ce86ff 96%);}
+.indicatorProgress.rate5 span {background: linear-gradient(360deg, #e7a9c6 0%, #e7a9c6 40%, #e7a9c6 96%);}
+.indicatorProgress.rate6 span {background: linear-gradient(360deg, #ebd766 0%, #ebd766 40%, #ebd766 96%);}
+.indicatorProgress.rate7 span {background: linear-gradient(360deg, #d6fd1d 0%, #d6fd1d 40%, #d6fd1d 96%);}
+.indicatorProgress.rate8 span {background: linear-gradient(360deg, #c2f381 0%, #c2f381 40%, #c2f381 96%);}
+.indicatorProgress.rate9 span {background: linear-gradient(360deg, #85dd7d 0%, #85dd7d 40%, #85dd7d 96%);}
+.indicatorProgress.rate10 span{background: linear-gradient(360deg, #45fc51 0%, #45fc51 40%, #45fc51 96%);}
+
 p{font-size:3em;margin:0;}
 
 .randItem{position:absolute;z-index:2;display:none;}

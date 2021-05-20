@@ -13,12 +13,31 @@ const Solved = ({id}) => {
   if(currentProgress){currentProgress = JSON.parse(currentProgress)}
   let percent = 0;
   let solved = 0;
+  let classColor = "null";
+  let percentWin = 0;
   if(currentProgress && currentProgress[id]){
     solved = currentProgress[id].filter(w => w !== false).length;
     const total = currentProgress[id].length;
+    const scoreSolvedWords = currentProgress[id].reduce((a, c) => {
+      if(c !== false){
+          return a + c
+      } else {
+          return parseInt(a)
+      }
+    }, 0);
+    console.log(scoreSolvedWords);
     percent = Math.round((Math.round(Math.round(solved)*100))/Math.round(total))/2;
+
+    // console.log("solvedWords", solvedWords);
+    percentWin = Math.round( scoreSolvedWords*100/(solved*5));
+    if(scoreSolvedWords*100 === solved*5) percentWin = 100;
+    
+    classColor = Math.max(0, Math.floor(percentWin/10));
   }
-  return (<div title={`${solved} ${Text({tid:"solved"})}`} className="indicatorProgress">
+  return (<div 
+      title={`${solved} ${Text({tid:"solved"})} | ${percentWin}% ${Text({tid:"rateWin"})}`} 
+      className={`indicatorProgress rate${classColor}`}
+    >
     <span style={{'width': `${percent}px`}}></span>
   </div>);
 }
