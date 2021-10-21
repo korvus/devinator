@@ -20,8 +20,8 @@
     "tous les jours je mange un petit déjeuner": {"nom": "Vsak dan jem zajtrk"},
     "Aujourd'hui c'est lundi":{"nom": "Danes je ponedeljek"},
     "Que fais-tu ?":{"nom": "Kaj delaš?"},
-    "Quelle heure est-il":{"nom": "Koliko je ura?"},
+    "Quelle heure est-il ?":{"nom": "Koliko je ura?"},
     "Il est quatre heures": {"nom": "Ura je štiri"},
-    "Je ne vais pas au travail aujourd'hui":{"nom": "Danes ne grem v službo"},
+    "Aujourd'hui je ne vais pas au travail":{"nom": "Danes ne grem v službo"},
     "Quand est-ce qu'on dîne ?":{"nom": "Kdaj je večerja?"}
 }
