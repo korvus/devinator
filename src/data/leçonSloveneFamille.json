@@ -22,7 +22,7 @@
 	"six":{"nom": "šest"},
 	"huit":{"nom": "osem"},
 	"Neuf":{"nom": "devet"},
-	"nom":{"nom": "priimek"},
+	"nom @@(de famille)":{"nom": "priimek"},
     "genre":{"nom": "spol"},
     "adresse":{"nom": "naslov"},
     "prénom":{"nom": "ime"},

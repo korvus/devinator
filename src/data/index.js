@@ -96,12 +96,12 @@ export const themeSummaries = [
     "number": 35
   },
   {
-    "id": "leçonSloveneConjuguaisonBasic",
+    "id": "leçonSloveneEtre",
     "desc": "Trouver les correspondances en slovènes",
     "visible": false,
     "alphabet": "sl",
     "langue": "fr",
-    "number": 21
+    "number": 19
   },
   {
     "id": "leçonSloveneFeed",
