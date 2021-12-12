@@ -19,5 +19,7 @@
     "notFound": "Il n'existe pas de mots associé à ce thème.",
     "solved": "devinettes résolue(s)",
     "reussite": "Réussite",
+    "hint": "Indice(s)",
+    "solutions": "Solution",
     "rateWin": "de réussite"
 }

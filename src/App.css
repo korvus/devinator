@@ -356,6 +356,15 @@ p{font-size:3em;margin:0;}
 .letter{display:inline-block;border:1px solid #555;width:25px;height:35px;margin-bottom:5px;margin-left:4px;text-align:center;font-weight:bold;font-size:20px;white-space:nowrap;cursor:pointer;text-transform:uppercase;}
 .letter:focus{outline: none;}
 
+.recap {border: 1px solid #aaa;margin: 80px auto 150px auto;width: 100%;}
+.recap th{padding: 10px 0;}
+.recap tr td:first-child {
+  text-align: right;
+  font-weight: bold;
+  padding-right: 10px;
+}
+.hintend{font-weight: normal; font-size: 12px;}
+
 @keyframes appear {
   0%{background-position:51% 0%}
   50%{background-position:50% 100%}

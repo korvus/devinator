@@ -25,7 +25,7 @@ const Solved = ({id}) => {
           return parseInt(a)
       }
     }, 0);
-    console.log(scoreSolvedWords);
+    // console.log(scoreSolvedWords);
     percent = Math.round((Math.round(Math.round(solved)*100))/Math.round(total))/2;
 
     // console.log("solvedWords", solvedWords);

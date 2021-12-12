@@ -19,5 +19,7 @@
     "notFound": "No words linked to this thematic.",
     "solved": "solved",
     "reussite": "Solving rate",
+    "hint": "Hint",
+    "solutions": "Solutions",
     "rateWin": "solved"
 }
