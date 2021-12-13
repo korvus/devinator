@@ -174,5 +174,13 @@ export const themeSummaries = [
     "alphabet": "fr",
     "langue": "en",
     "number": 16
+  },
+  {
+    "id": "capboulangerieAccronymes",
+    "desc": "Décoder les accronymes",
+    "visible": false,
+    "alphabet": "fr",
+    "langue": "fr",
+    "number": 33
   }
 ]

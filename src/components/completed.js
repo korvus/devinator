@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useThematic } from "../store/thematic";
 import { Text } from "../store/lang";
 import { Link } from "react-router-dom";
+import { Hint } from "../utils/index";
 
 const Completed = ({ total }) => {
   const {
@@ -50,10 +51,9 @@ const Completed = ({ total }) => {
               let i = 0;
               for (const property in answers) {
                 i++;
-                const [hint, complement] = property.split("@@");
                 container.push(
                   <tr key={i}>
-                    <td>{hint}{complement && <span className="hintend">{complement}</span>}</td>
+                    <td><Hint wordhint={property} /></td>
                     <td>{answers[property].nom}</td>
                   </tr>
                 );

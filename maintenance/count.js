@@ -13,6 +13,7 @@ fs.readdir(directoryPath, function (err, files) {
     files.forEach(function (file) {
         if(file !== "index.js"){
             const identifiant = file.split(".")[0];
+            console.log("file : ", file);
             let contentFiles = fs.readFileSync(`${directoryPath}${file}`);
             let contentParsed = JSON.parse(contentFiles);
             nbr.push({name: identifiant, number:Object.keys(contentParsed).length});                        
@@ -23,6 +24,7 @@ fs.readdir(directoryPath, function (err, files) {
 
     let rawContent = fs.readFileSync(`${directoryPath}index.js`).toString();
     const [prefix, jsoncontent] = rawContent.split("=");
+    // console.log("jsoncontent: ", jsoncontent);
     const contentToUpdate = JSON.parse(jsoncontent);
 
     for(a = 0; a < contentToUpdate.length; a++){

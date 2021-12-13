@@ -16,6 +16,7 @@ import {
   extractOnlySuggestionId,
   extractIndexBaseOnFalse,
   isEqual,
+  Hint,
 } from "../utils";
 import { useParams, Link } from "react-router-dom";
 
@@ -329,8 +330,6 @@ function Game() {
     score,
   ] = useWordAnswer(thematic, progression);
 
-  const [hint, complement] = word.hint.split("@@");
-
   const resetThematic = () => {
     // Reset a false les mots dans le localstorage (mais ne retouche pas au state)
     reinitThematicProgress(thematic, thematicProgress.totalThematic);
@@ -373,17 +372,10 @@ function Game() {
 
         <Score score={score} total={thematicProgress.totalThematic} />
 
-        {thematicProgress.unsolved !== 0 ? (
+        {thematicProgress.unsolved === 0 ? (
           <>
             <div className="wrapperHint">
-              <div
-                className={`key${
-                  word.hint.split("").length > 10 ? " longWord" : " shortWord"
-                }`}
-              >
-                {hint}
-              </div>
-              {complement && <span className="hint">{complement}</span>}
+              <Hint wordhint={word.hint} />
             </div>
             <AnswerInput word={word} answer={answer} onLetter={handleLetter} />
 
