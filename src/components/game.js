@@ -372,7 +372,7 @@ function Game() {
 
         <Score score={score} total={thematicProgress.totalThematic} />
 
-        {thematicProgress.unsolved === 0 ? (
+        {thematicProgress.unsolved !== 0 ? (
           <>
             <div className="wrapperHint">
               <Hint wordhint={word.hint} />
