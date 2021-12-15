@@ -181,6 +181,14 @@ export const themeSummaries = [
     "visible": false,
     "alphabet": "fr",
     "langue": "fr",
-    "number": 33
+    "number": 34
+  },
+  {
+    "id": "capboulangerieOeuf",
+    "desc": "La constitution de l'oeuf",
+    "visible": false,
+    "alphabet": "fr",
+    "langue": "fr",
+    "number": 10
   }
 ]
