@@ -363,6 +363,7 @@ p{font-size:3em;margin:0;}
   font-weight: bold;
   padding-right: 10px;
 }
+.recap .key img{max-height: 30px;}
 .recap .key {display: inline;}
 .recap .hint{display: inline;font-weight: normal; font-size: 12px;}
 

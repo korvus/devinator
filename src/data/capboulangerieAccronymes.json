@@ -31,6 +31,7 @@
     "TMS": {"nom": "Trouble Musculo-squelettiques"},
     "VLEP": {"nom": "Valeurs limites d'exposition professionnelle"},
     "VME": {"nom": "Valeurs moyenne d'exposition"},
+    "RCS": {"nom": "Registre du Commerce et des Sociétés"},
     "INRS": {"nom": "Institut national de recherche et de sécurité"},
     "ANACT": {"nom": "Agence nationale pour l'amélioration des conditions de travail"}
 }

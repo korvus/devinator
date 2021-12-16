@@ -63,7 +63,11 @@ export function extractIndexBaseOnFalse(obj) {
 }
 
 export const Hint = ({ wordhint }) => {
-  const [hint, complement] = wordhint.split("@@");
+  const regex = new RegExp('img>');
+  let w = wordhint;
+  const thereIsPic = regex.test(wordhint);
+  if(thereIsPic) w = wordhint.split("img>")[1];
+  const [hint, complement] = w.split("@@");
   return (
     <>
       <div
@@ -71,7 +75,7 @@ export const Hint = ({ wordhint }) => {
           wordhint.split("").length > 10 ? " longWord" : " shortWord"
         }`}
       >
-        {hint}
+        {thereIsPic ? <img src={hint} alt="" /> : hint}
       </div>
       {complement && <span className="hint">{complement}</span>}
     </>
