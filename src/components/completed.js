@@ -16,6 +16,7 @@ const Completed = ({ total }) => {
 
   const refresh = () => {
     // Reset a false les mots dans le localstorage (mais ne retouche pas au state)
+    console.log("total", total);
     reinitThematicProgress(thematic, total);
     // Update le hooks pour provoquer un refresh
     updateThematicProgress(thematic);

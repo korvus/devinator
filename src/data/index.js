@@ -181,7 +181,7 @@ export const themeSummaries = [
     "visible": false,
     "alphabet": "fr",
     "langue": "fr",
-    "number": 34
+    "number": 35
   },
   {
     "id": "capboulangerieOeuf",
@@ -190,5 +190,21 @@ export const themeSummaries = [
     "alphabet": "fr",
     "langue": "fr",
     "number": 10
+  },
+  {
+    "id": "capboulangerieElectrique",
+    "desc": "Unités d'électricité",
+    "visible": false,
+    "alphabet": "fr",
+    "langue": "fr",
+    "number": 8
+  },
+  {
+    "id": "capboulangeriePetrissage",
+    "desc": "Pétrissage, étapes et Pétrin",
+    "visible": false,
+    "alphabet": "fr",
+    "langue": "fr",
+    "number": 16
   }
 ]

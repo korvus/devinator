@@ -1,0 +1,10 @@
+{
+	"A @@nom de l'unité":{"nom": "Ampère"},
+	"V @@nom de l'unité":{"nom": "Volt"},
+	"Hz @@nom de l'unité":{"nom": "Hertz"},
+	"W @@nom de l'unité":{"nom": "Watt"},
+    "A @@Qu'est ce que ça désigne":{"nom": "Intensité"},
+	"V @@Qu'est ce que ça désigne":{"nom": "Tension"},
+	"Hz @@Qu'est ce que ça désigne":{"nom": "Fréquence"},
+	"W @@Qu'est ce que ça désigne":{"nom": "Puissance"}
+}

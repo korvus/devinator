@@ -1,0 +1,18 @@
+{
+	"Pétrissage davantage en première vitesse":{"nom": "pétrissage à vitesse lente"},
+	"Pétrissage autant en première vitesse qu'en deuxième":{"nom": "pétrissage amélioré"},
+	"Pétrissage davantage en seconde vitesse":{"nom": "pétrissage intensifié"},
+	"Pain de faible volume, mie dense, alvéoles irrégulières, odeur de froment non altérée.":{"nom": "Pétrissage à vitesse lente"},
+    "Pain de volume moyen, alvéoles sont importantes et irrégulières. associé à une pré-fermentation.":{"nom": "pétrissage amélioré"},
+	"Pain volumineux, mie blanche et fine, alvéolée en nid d’abeille, arômes peu développés. pain a rassissement rapide.":{"nom": "pétrissage intensif"},
+	"Une des étape du pétrissage @@Lorsque la farine et l'eau se mélangent":{"nom": "frasage"},
+    "Une des étape du pétrissage @@Lorsque la structure gluténique se forme, élastique, imperméable et tenace":{"nom": "Etirage"},
+	"Une des étape du pétrissage @@Incorporation d'air pour multiplier les cellules de levure":{"nom": "Soufflage"},
+    "Quelle est généralement la température moyenne de pâte a l'issue d'un pétrissage @@en lettres":{"nom": "vingt-trois"},
+    "img>https://i.imgur.com/J1MvsBJ.png":{"nom": "Bras plongeants"},
+    "img>https://i.imgur.com/tpaUirK.png":{"nom": "bras oblique"},
+    "img>https://i.imgur.com/Kay5r1t.png":{"nom": "spirale"},
+    "img>https://i.imgur.com/85nihVa.png":{"nom": "Double hélices"},
+    "img>https://i.imgur.com/wOLhCm0.png":{"nom": "Batteur"},
+    "Quel est l'autre nom du pétrin à bras plongeants ?":{"nom": "Artoflex"}
+}

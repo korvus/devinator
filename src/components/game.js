@@ -32,6 +32,7 @@ async function fetchWord(thematic, progress, updateThematicProgress) {
   let allWords;
   try {
     allWords = await import(`../data/${thematic}.json`);
+    console.log("allWords", allWords);
   } catch (error) {
     window.location = "/notfound";
   }
