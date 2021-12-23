@@ -8,6 +8,15 @@ const Proposal = ({ word, answer, onLetter, cancel, statusAnswer }) => {
 
   return (
     <div className="proposal">
+      <div 
+        className={`proposaletter backspace ${statusAnswer ? "locked" : ""}`}
+        onClick={() => {
+          if(!statusAnswer) cancel();
+        }}
+        title={Text({tid: "cancel"})}
+      >
+        ⇠
+      </div>
       {word.suggestion.map((suggestionLetter, suggestionIndex) => (
         <div
           key={suggestionIndex}
@@ -19,15 +28,6 @@ const Proposal = ({ word, answer, onLetter, cancel, statusAnswer }) => {
           {suggestionLetter}
         </div>
       ))}
-      <div 
-        className={`proposaletter backspace ${statusAnswer ? "locked" : ""}`}
-        onClick={() => {
-          if(!statusAnswer) cancel();
-        }}
-        title={Text({tid: "cancel"})}
-      >
-        ⇠
-      </div>
     </div>
   );
 };
