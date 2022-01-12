@@ -33,5 +33,7 @@
     "VME": {"nom": "Valeurs moyenne d'exposition"},
     "RCS": {"nom": "Registre du Commerce et des Sociétés"},
     "INRS": {"nom": "Institut national de recherche et de sécurité"},
-    "ANACT": {"nom": "Agence nationale pour l'amélioration des conditions de travail"}
+    "ANACT": {"nom": "Agence nationale pour l'amélioration des conditions de travail"},
+    "DGCCRF": {"nom": "Direction générale de la concurrence, de la consommation et de la répression des fraudes"},
+    "TIA": {"nom": "Toxi-infection alimentaire"}
 }

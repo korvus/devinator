@@ -1,4 +1,5 @@
 import { themeSummaries } from "../data/index.js";
+import { useState } from "react";
 
 // Anglais : https://www3.nd.edu/~busiforc/handouts/cryptography/letterfrequencies.html
 // Slovenian : https://en.wikipedia.org/wiki/Scrabble_letter_distributions#Slovenian
@@ -63,19 +64,33 @@ export function extractIndexBaseOnFalse(obj) {
 }
 
 export const Hint = ({ wordhint }) => {
-  const regex = new RegExp('img>');
+  const [displayModal, setDisplayModal] = useState(0);
+
+  const regex = new RegExp("img>");
   let w = wordhint;
   const thereIsPic = regex.test(wordhint);
-  if(thereIsPic) w = wordhint.split("img>")[1];
+  if (thereIsPic) w = wordhint.split("img>")[1];
   const [hint, complement] = w.split("@@");
   return (
     <>
       <div
         className={`key${
           wordhint.split("").length > 10 ? " longWord" : " shortWord"
-        }`}
+        }${thereIsPic ? " pic" : ""}`}
       >
-        {thereIsPic ? <img src={hint} alt="" /> : hint}
+        {thereIsPic ? (
+          <div className="surfaceToClick" onClick={() => setDisplayModal((displayModal) => !displayModal)}>
+            <img
+              onClick={() => setDisplayModal(true)}
+              src={hint}
+              className={`modal ${displayModal ? "display" : "hidden"}`}
+              alt=""
+            />
+            <img className="todisplay" src={hint} alt="" />
+          </div>
+        ) : (
+          hint
+        )}
       </div>
       {complement && <span className="hint">{complement}</span>}
     </>

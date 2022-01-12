@@ -10,6 +10,7 @@ import ButtonActions from "./ButtonActions.js";
 import ProgressBar from "./ProgressBar";
 import Footer from "./footer";
 import { useScore } from "../store/score";
+import { useParams, Link } from "react-router-dom";
 
 import {
   lettersMatch,
@@ -18,7 +19,7 @@ import {
   isEqual,
   Hint,
 } from "../utils";
-import { useParams, Link } from "react-router-dom";
+
 
 const WORD_DEFAULT = { hint: "", answer: "", suggestion: [] };
 const THEMATIC_DEFAULT = { unsolved: 10, totalThematic: 0 };
@@ -32,7 +33,7 @@ async function fetchWord(thematic, progress, updateThematicProgress) {
   let allWords;
   try {
     allWords = await import(`../data/${thematic}.json`);
-    console.log("allWords", allWords);
+    // console.log("allWords", allWords);
   } catch (error) {
     window.location = "/notfound";
   }
