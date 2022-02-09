@@ -101,7 +101,7 @@ export const themeSummaries = [
     "visible": false,
     "alphabet": "sl",
     "langue": "fr",
-    "number": 19
+    "number": 29
   },
   {
     "id": "leçonSloveneFeed",
