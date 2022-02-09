@@ -181,7 +181,7 @@ export const themeSummaries = [
     "visible": false,
     "alphabet": "fr",
     "langue": "fr",
-    "number": 35
+    "number": 37
   },
   {
     "id": "capboulangerieOeuf",
