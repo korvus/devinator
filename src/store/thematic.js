@@ -12,6 +12,8 @@ const getArrayData = async (thematic) => {
 const initProgress = async (thematic, existing) => {
   const allWords = await import(`../data/${thematic}.json`);
 
+  console.log("progression thematic & existing ", thematic, existing);
+
   const words = Object.entries(allWords);
   const emptyArray = Array(words.length - 1).fill(false);
 

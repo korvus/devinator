@@ -39,7 +39,9 @@ async function fetchWord(thematic, progress, updateThematicProgress) {
   }
 
   progress = typeof progress === "object" ? progress : JSON.parse(progress);
+  const words = Object.entries(allWords.default);
 
+  // Si il n'existe pas de progressions || pas de progression pour la thématique associée
   if (Object.keys(progress).length === 0 || progress[thematic] === undefined) {
     await updateThematicProgress(thematic);
     return [WORD_DEFAULT, THEMATIC_DEFAULT];
@@ -51,18 +53,18 @@ async function fetchWord(thematic, progress, updateThematicProgress) {
   }
   const unsolvedIndexWords = extractIndexBaseOnFalse(listAllWords);
 
-  const words = Object.entries(allWords.default);
   const randomNumber = rand(unsolvedIndexWords.length);
 
   const wordIndex = unsolvedIndexWords[randomNumber];
   const word = words[wordIndex];
 
-  if (unsolvedIndexWords.length === 0) {
+  // Word peut être undefined si le chiffre aléatoire donne un mot qui n'existe plus (update des données)
+  if (unsolvedIndexWords.length === 0 || word === undefined) {
     return [
       WORD_DEFAULT,
       {
         unsolved: unsolvedIndexWords.length,
-        totalThematic: listAllWords.length,
+        totalThematic: words.length !== listAllWords.length ? words.length : listAllWords.length,
       },
     ];
   }
@@ -76,7 +78,7 @@ async function fetchWord(thematic, progress, updateThematicProgress) {
     },
     {
       unsolved: unsolvedIndexWords.length,
-      totalThematic: listAllWords.length,
+      totalThematic: words.length !== listAllWords.length ? words.length : listAllWords.length,
     },
   ];
 }
