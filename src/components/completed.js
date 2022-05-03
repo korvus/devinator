@@ -79,7 +79,6 @@ const Completed = ({ total }) => {
           </table>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

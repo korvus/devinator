@@ -107,7 +107,7 @@ li.theme.gray a{color: #999;}
 .langues span:first-child:before {content: "";}
 
 
-.menu{background:#000;color:#fff;padding:5px;}
+.menu{flex-grow:0;background:#000;color:#fff;padding:5px;flex-shrink: 0;}
 .menuWrapper{width: 900px;margin: 0 auto;}
 .menu a{margin: 0 auto;color:#fff;text-decoration:none;cursor: pointer;}
 .menu .lk{cursor: pointer;margin-left: 20px;}
@@ -188,6 +188,8 @@ li.theme.gray a{color: #999;}
   transform: rotate(5deg);
   animation: pulse 3s ease-out 2s alternate infinite none running;
 }
+
+main {flex-grow: 1;}
 
 .retry {
   display:none;margin:30px auto;cursor:pointer;color:#000;text-decoration:none;
@@ -463,7 +465,7 @@ background: linear-gradient(to bottom,  #3b679e 0%,#2b88d9 50%,#207cca 51%,#7db9
 	.proposal{padding:0 5px;}
 }
 
-footer{clear:both;text-align:center;width: 100%;margin: 0 auto;background: #000;}
+footer{flex-shrink: 0;flex-grow:0;text-align:center;width: 100%;margin: 0 auto;background: #000;}
 footer a{font-size:14px;color:#fff;padding:4px;text-decoration:underline;display:inline-block;cursor:pointer;}
 
 
