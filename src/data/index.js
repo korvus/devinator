@@ -37,7 +37,7 @@ export const themeSummaries = [
     "visible": true,
     "alphabet": "fr",
     "langue": "fr",
-    "number": 69
+    "number": 68
   },
   {
     "id": "leçonSloveneBases",
@@ -173,7 +173,7 @@ export const themeSummaries = [
     "visible": false,
     "alphabet": "fr",
     "langue": "en",
-    "number": 16
+    "number": 9
   },
   {
     "id": "capboulangerieAccronymes",
