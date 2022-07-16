@@ -40,6 +40,14 @@ export const themeSummaries = [
     "number": 69
   },
   {
+    "id": "leçonSloveneAvoir",
+    "desc": "Trouver les correspondances en slovènes",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "fr",
+    "number": 34
+  },
+  {
     "id": "leçonSloveneBases",
     "desc": "Trouver les correspondances en slovènes",
     "visible": false,
@@ -173,7 +181,7 @@ export const themeSummaries = [
     "visible": false,
     "alphabet": "fr",
     "langue": "en",
-    "number": 16
+    "number": 9
   },
   {
     "id": "capboulangerieAccronymes",
