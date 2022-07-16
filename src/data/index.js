@@ -37,7 +37,7 @@ export const themeSummaries = [
     "visible": true,
     "alphabet": "fr",
     "langue": "fr",
-    "number": 69
+    "number": 68
   },
   {
     "id": "leçonSloveneAvoir",

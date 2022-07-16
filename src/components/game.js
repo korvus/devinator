@@ -357,7 +357,7 @@ function Game() {
         }${thematicProgress.unsolved === 0 ? " solved" : ""}
         `}
       >
-        <div className="menu">
+        <nav className="menu">
           <div className="menuWrapper">
             <Link to="/">
               <Text tid="home" />
@@ -370,7 +370,9 @@ function Game() {
               <Text tid="resetForThematic" />
             </span>
           </div>
-        </div>
+        </nav>
+
+        <main>
 
         <ProgressBar prog={thematicProgress} />
 
@@ -403,11 +405,12 @@ function Game() {
               statusAnswer={statusAnswer}
               onLetter={handleLetter}
             />
-            <Footer />
           </>
         ) : (
           <Completed total={thematicProgress.totalThematic} />
         )}
+        </main>
+        <Footer />
       </div>
     </>
   );
