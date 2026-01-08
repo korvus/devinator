@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import { themeSummaries } from "../data/index";
 import { Text, penduContext } from "../store/lang";
 import Game from "./game";
-import { Switch, Link, Route } from "react-router-dom";
+import { Routes, Route, Link } from 'react-router-dom';
 import Notfound from "./notfound.js";
 import Listall from "./listall.js";
 import { LOCAL_STORAGE_KEY_PROGRESS } from "../store/thematic";
@@ -66,24 +66,15 @@ const ListLinks = () => {
   ));
 };
 
+
 function Home() {
-
   return (
-    <Switch>
-      <Route path="/notfound">
-        <Notfound />
-      </Route>
-
-      <Route path="/listall">
-        <Listall />
-      </Route>
-
-      <Route path="/:thematic">
-        <Game />
-      </Route>
-
-      <Route path="/">
-        <div className="home">
+      <Routes>
+        <Route path="/notfound" element={<Notfound />} />
+        <Route path="/listall" element={<Listall />} />
+        <Route path="/:thematic" element={<Game />} />
+        <Route path="/" element={
+          <div className="home">
             <h1>
               <Text tid="titre" />
             </h1>
@@ -97,9 +88,11 @@ function Home() {
               </ul>
             </div>
           </div>
-      </Route>
-    </Switch>
-    );
+        } />
+         
+      </Routes>
+  );
 }
+
 
 export default Home;

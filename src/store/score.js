@@ -24,14 +24,17 @@ function useAnimatedNotifications() {
     setItems(items.filter((item) => item.id !== id));
   };
 
-  const itemsTransition = useTransition(items, (item) => item.id, {
-    config: SPRING_CONFIG,
+  const itemsTransition = useTransition(items, {
+    keys: item => item.id,
     from: { progress: 0 },
     enter: { progress: 0 },
     leave: { progress: 1 },
-    onStart: ({ id }) => {
-      removeItem(id);
+    onRest: ({ item, phase }) => {
+      if (phase === 'leave') {
+        removeItem(item.id);
+      }
     },
+    config: SPRING_CONFIG,
   });
 
   const lastId = useRef(0);
@@ -56,7 +59,7 @@ export function ScoreProvider({ children }) {
       <div className="secondWrapper">
         <div className="col">
           <div className="scoreContext">
-            {notifications.map(
+            {Array.isArray(notifications) && notifications.map(
               ({ props: { progress }, item: { label, color, top }, key }) => (
                 <animated.div
                   className="pts"

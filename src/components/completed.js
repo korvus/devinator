@@ -3,7 +3,6 @@ import { useThematic } from "../store/thematic";
 import { Text } from "../store/lang";
 import { Link } from "react-router-dom";
 import { Hint } from "../utils/index";
-import Footer from "./footer";
 
 const Completed = ({ total }) => {
   const {
