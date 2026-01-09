@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CI: false
+      NODE_OPTIONS: --openssl-legacy-provider
 
     steps:
       - name: Checkout code
@@ -21,10 +22,8 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies and build
-        env:
-          CI: false
         run: |
-          npm ci
+          npm install --legacy-peer-deps
           npm run build
 
       - name: Deploy via FTP
