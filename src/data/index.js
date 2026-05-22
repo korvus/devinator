@@ -128,6 +128,94 @@ export const themeSummaries = [
     "number": 25
   },
   {
+    "id": "sloveneHave",
+    "desc": "Find the Slovenian equivalents for to have",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "en",
+    "number": 34
+  },
+  {
+    "id": "sloveneBasics",
+    "desc": "Find the Slovenian equivalents",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "en",
+    "number": 35
+  },
+  {
+    "id": "sloveneExpressions",
+    "desc": "Find the Slovenian equivalents for common expressions",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "en",
+    "number": 25
+  },
+  {
+    "id": "sloveneFamily",
+    "desc": "Find the Slovenian equivalents for family words and profile fields",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "en",
+    "number": 33
+  },
+  {
+    "id": "sloveneAboutMe",
+    "desc": "Find the Slovenian equivalents for introducing yourself",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "en",
+    "number": 26
+  },
+  {
+    "id": "sloveneDifficult",
+    "desc": "Slovenian words I memorize the least well",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "en",
+    "number": 16
+  },
+  {
+    "id": "sloveneSentenceDay",
+    "desc": "Generic Slovenian daily sentences",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "en",
+    "number": 25
+  },
+  {
+    "id": "sloveneDay",
+    "desc": "Find the Slovenian equivalents for daily routine words",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "en",
+    "number": 35
+  },
+  {
+    "id": "sloveneBe",
+    "desc": "Find the Slovenian equivalents for to be",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "en",
+    "number": 29
+  },
+  {
+    "id": "sloveneFood",
+    "desc": "Find the Slovenian equivalents for food and shopping words",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "en",
+    "number": 35
+  },
+  {
+    "id": "sloveneSentenceFood",
+    "desc": "Generic Slovenian food and shopping sentences",
+    "visible": false,
+    "alphabet": "sl",
+    "langue": "en",
+    "number": 25
+  },
+  {
     "id": "europeanCapitals",
     "desc": "Find all the capitals for European continent",
     "visible": true,

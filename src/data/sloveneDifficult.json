@@ -1,0 +1,18 @@
+{
+  "Yesterday": { "nom": "včeraj" },
+  "This morning": { "nom": "zjutraj" },
+  "I take a shower": { "nom": "tuširam se" },
+  "I listen to music": { "nom": "poslušam glasbo" },
+  "I rest": { "nom": "počivam" },
+  "I read": { "nom": "berem" },
+  "Girl": { "nom": "punca" },
+  "Nice to meet you": { "nom": "me veseli" },
+  "Hi": { "nom": "živjo" },
+  "I do not know": { "nom": "Ne vem" },
+  "Country": { "nom": "Država" },
+  "Seven": { "nom": "Sedem" },
+  "I am not married": { "nom": "Nisem poročena" },
+  "This is my family": { "nom": "To je moja družina" },
+  "What is your first name? @@(formal)": { "nom": "Kako vam je ime?" },
+  "Do you want to give me your e-mail address?": { "nom": "A mi daš e-naslov?" }
+}
