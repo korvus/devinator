@@ -130,7 +130,7 @@ export const themeSummaries = [
   {
     "id": "sloveneHave",
     "desc": "Find the Slovenian equivalents for to have",
-    "visible": false,
+    "visible": true,
     "alphabet": "sl",
     "langue": "en",
     "number": 34
@@ -138,7 +138,7 @@ export const themeSummaries = [
   {
     "id": "sloveneBasics",
     "desc": "Find the Slovenian equivalents",
-    "visible": false,
+    "visible": true,
     "alphabet": "sl",
     "langue": "en",
     "number": 35
@@ -146,7 +146,7 @@ export const themeSummaries = [
   {
     "id": "sloveneExpressions",
     "desc": "Find the Slovenian equivalents for common expressions",
-    "visible": false,
+    "visible": true,
     "alphabet": "sl",
     "langue": "en",
     "number": 25
@@ -154,7 +154,7 @@ export const themeSummaries = [
   {
     "id": "sloveneFamily",
     "desc": "Find the Slovenian equivalents for family words and profile fields",
-    "visible": false,
+    "visible": true,
     "alphabet": "sl",
     "langue": "en",
     "number": 33
@@ -162,7 +162,7 @@ export const themeSummaries = [
   {
     "id": "sloveneAboutMe",
     "desc": "Find the Slovenian equivalents for introducing yourself",
-    "visible": false,
+    "visible": true,
     "alphabet": "sl",
     "langue": "en",
     "number": 26
@@ -170,7 +170,7 @@ export const themeSummaries = [
   {
     "id": "sloveneDifficult",
     "desc": "Slovenian words I memorize the least well",
-    "visible": false,
+    "visible": true,
     "alphabet": "sl",
     "langue": "en",
     "number": 16
@@ -178,7 +178,7 @@ export const themeSummaries = [
   {
     "id": "sloveneSentenceDay",
     "desc": "Generic Slovenian daily sentences",
-    "visible": false,
+    "visible": true,
     "alphabet": "sl",
     "langue": "en",
     "number": 25
@@ -186,7 +186,7 @@ export const themeSummaries = [
   {
     "id": "sloveneDay",
     "desc": "Find the Slovenian equivalents for daily routine words",
-    "visible": false,
+    "visible": true,
     "alphabet": "sl",
     "langue": "en",
     "number": 35
@@ -194,7 +194,7 @@ export const themeSummaries = [
   {
     "id": "sloveneBe",
     "desc": "Find the Slovenian equivalents for to be",
-    "visible": false,
+    "visible": true,
     "alphabet": "sl",
     "langue": "en",
     "number": 29
@@ -202,7 +202,7 @@ export const themeSummaries = [
   {
     "id": "sloveneFood",
     "desc": "Find the Slovenian equivalents for food and shopping words",
-    "visible": false,
+    "visible": true,
     "alphabet": "sl",
     "langue": "en",
     "number": 35
@@ -210,7 +210,7 @@ export const themeSummaries = [
   {
     "id": "sloveneSentenceFood",
     "desc": "Generic Slovenian food and shopping sentences",
-    "visible": false,
+    "visible": true,
     "alphabet": "sl",
     "langue": "en",
     "number": 25
